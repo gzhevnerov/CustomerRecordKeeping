@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="518.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Label layoutX="27.0" layoutY="23.0" text="Customer ID" />
+    <Label layoutX="117.0" layoutY="23.0" text="New Email" />
+    <TextField fx:id="employeeID" layoutX="27.0" layoutY="43.0" prefWidth="67.0" promptText="Emp ID" />
+    <TextField alignment="CENTER" layoutX="115.0" layoutY="43.0" prefWidth="144.0" promptText="new email" text="" />
+    <Label layoutX="17.0" layoutY="122.0" text="Name" />
+    <Label layoutX="16.0" layoutY="145.0" text="Surname" />
+    <Label layoutX="16.0" layoutY="168.0" text="Email" />
+    <TextField fx:id="nameField" layoutX="81.0" layoutY="116.0" prefWidth="164.0" promptText="Name" />
+    <TextField fx:id="surnameField" layoutX="81.0" layoutY="139.0" prefWidth="164.0" promptText="Surname" text="" />
+    <TextField fx:id="emailField" layoutX="81.0" layoutY="162.0" prefWidth="164.0" promptText="email" text="Email" />
+    <Button fx:id="searchButton" layoutX="299.0" layoutY="39.0" mnemonicParsing="false" text="Search First" />
+    <Button layoutX="301.0" layoutY="81.0" mnemonicParsing="false" text="Delete" />
+    <Button fx:id="updateButton" layoutX="299.0" layoutY="132.0" mnemonicParsing="false" text="Update" />
+    <Button layoutX="301.0" layoutY="177.0" mnemonicParsing="false" text="Add" />
+    <TextField fx:id="telephoneField" layoutX="81.0" layoutY="184.0" prefWidth="164.0" promptText="tel" text="Tel" />
+    <Label layoutX="16.0" layoutY="190.0" text="Telephone" />
+  </children>
+</AnchorPane>
