@@ -77,5 +77,25 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+    public void createEmployee(Employee emp) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "insert into database_of_employee.employees (name, surname, email, telephone) values (?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, emp.getName());
+            preparedStatement.setString(2, emp.getSurname());
+            preparedStatement.setString(3, emp.getEmail());
+            preparedStatement.setString(4, emp.getTelephone());
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

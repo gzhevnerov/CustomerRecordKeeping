@@ -15,7 +15,14 @@ public class Employee {
         this.telephone = telephone;
     }
 
-    public Employee(int i, String text) {
+    public Employee() {
+    }
+
+    public Employee(String name, String surname, String email, String telephone) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
     }
 
     public int getId() {

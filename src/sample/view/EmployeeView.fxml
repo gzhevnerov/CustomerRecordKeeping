@@ -28,18 +28,12 @@
     <Button fx:id="searchButton" layoutX="22.0" layoutY="240.0" mnemonicParsing="false" text="Search First" />
     <Button layoutX="119.0" layoutY="240.0" mnemonicParsing="false" text="Delete" />
     <Button fx:id="updateButton" layoutX="191.0" layoutY="240.0" mnemonicParsing="false" text="Update" />
-    <Button layoutX="119.0" layoutY="61.0" mnemonicParsing="false" text="Add" />
+    <Button fx:id="addButton" layoutX="119.0" layoutY="61.0" mnemonicParsing="false" text="Add" />
     <TextField fx:id="telephoneField" layoutX="84.0" layoutY="193.0" prefWidth="164.0" promptText="Tel" text="" />
     <Label layoutX="18.0" layoutY="195.0" text="Telephone" />
     <Label fx:id="statusLabel" layoutX="191.0" layoutY="399.0" prefWidth="187.0" text="" />
   </children>
   <stylesheets>
-    <URL value="@1.css" />
-    <URL value="@2.css" />
-    <URL value="@3.css" />
-    <URL value="@4.css" />
-    <URL value="@5.css" />
-    <URL value="@7.css" />
     <URL value="@background.css" />
   </stylesheets>
 </AnchorPane>

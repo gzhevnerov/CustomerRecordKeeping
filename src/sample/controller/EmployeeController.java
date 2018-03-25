@@ -34,6 +34,8 @@ public class EmployeeController {
     Button clearButton;
     @FXML
     Label statusLabel;
+    @FXML
+    Button addButton;
 
 
 
@@ -49,6 +51,11 @@ public class EmployeeController {
             @Override
             public void handle(MouseEvent event) {
                 updateEmployee();
+            }
+        });
+        addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) { createEmployee();
             }
         });
     }
@@ -79,6 +86,13 @@ public class EmployeeController {
       telephoneField.clear();
       statusLabel.setText("Success");
       statusLabel.setTextFill(Color.web("#ff0000"));
+    }
+    private void createEmployee() {
+        Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText());
+        System.out.println(nameField.getText());
+        System.out.println(emp.getName());
+        DBUtil dbUtil = new DBUtil();
+        dbUtil.createEmployee(emp);
     }
 }
 
