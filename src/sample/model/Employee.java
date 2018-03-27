@@ -24,7 +24,9 @@ public class Employee {
         this.email = email;
         this.telephone = telephone;
     }
-
+    public Employee(int id) {
+        this.id = id;
+    }
     public int getId() {
         return id;
     }

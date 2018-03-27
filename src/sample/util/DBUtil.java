@@ -77,6 +77,7 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+
     public void createEmployee(Employee emp) {
         Connection connection = null;
         try {
@@ -97,5 +98,23 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+    public void deleteEmployee(Employee emp) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "delete from database_of_employee.employees where employee_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, emp.getId());
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
 

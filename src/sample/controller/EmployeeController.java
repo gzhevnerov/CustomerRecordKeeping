@@ -31,7 +31,7 @@ public class EmployeeController {
     @FXML
     TextField operationField;
     @FXML
-    Button clearButton;
+    Button deleteButton;
     @FXML
     Label statusLabel;
     @FXML
@@ -58,6 +58,12 @@ public class EmployeeController {
             public void handle(MouseEvent event) { createEmployee();
             }
         });
+        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) { deleteEmployee();
+            }
+        });
+
     }
 
     private void find() {
@@ -84,7 +90,7 @@ public class EmployeeController {
       surnameField.clear();
       emailField.clear();
       telephoneField.clear();
-      statusLabel.setText("Success");
+      statusLabel.setText("Employee was updated");
       statusLabel.setTextFill(Color.web("#ff0000"));
     }
     private void createEmployee() {
@@ -93,6 +99,20 @@ public class EmployeeController {
         System.out.println(emp.getName());
         DBUtil dbUtil = new DBUtil();
         dbUtil.createEmployee(emp);
+        nameField.clear();
+        surnameField.clear();
+        emailField.clear();
+        telephoneField.clear();
+        statusLabel.setText("Customer was created");
+
+
+    }
+    private void deleteEmployee() {
+        Employee emp = new Employee(Integer.parseInt(employeeID.getText()));
+        DBUtil dbUtil = new DBUtil();
+        dbUtil.deleteEmployee(emp);
+        employeeID.clear();
+        statusLabel.setText("Customer was deleted");
     }
 }
 
