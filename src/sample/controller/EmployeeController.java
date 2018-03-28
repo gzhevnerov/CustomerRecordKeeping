@@ -117,21 +117,19 @@ public class EmployeeController {
         statusLabel.setTextFill(Color.web("#32CD32"));
     }
     private void deleteEmployee() {
-        Employee emp = new Employee(Integer.parseInt(employeeID.getText()));
-        DBUtil dbUtil = new DBUtil();
-        dbUtil.deleteEmployee(emp);
-        employeeID.clear();
-        statusLabel.setText("Customer was deleted");
-        statusLabel.setTextFill(Color.web("#FF0000"));
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Look, a Confirmation Dialog");
-        alert.setContentText("Are you ok with this?");
+        alert.setTitle("Delete confirmation");
+        alert.setHeaderText("Delete id " + employeeID.getText() + "?");
+        alert.setContentText("Are you sure you want to delete customer's record?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-        } else {
-
+        if (result.get() == ButtonType.OK) {
+            Employee emp = new Employee(Integer.parseInt(employeeID.getText()));
+            DBUtil dbUtil = new DBUtil();
+            dbUtil.deleteEmployee(emp);
+            employeeID.clear();
+            statusLabel.setText("Customer was deleted");
+            statusLabel.setTextFill(Color.web("#FF0000"));
         }
     }
     private void clearFields() {
