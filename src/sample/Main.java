@@ -13,6 +13,8 @@ import sample.model.Employee;
 import sample.util.DBUtil;
 
 import javax.print.DocFlavor;
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private Component frame;
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -56,6 +60,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    
     public static void main(String[] args) {
 
         launch(args);

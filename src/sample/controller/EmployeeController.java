@@ -2,6 +2,7 @@ package sample.controller;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,7 +11,10 @@ import javafx.scene.paint.Color;
 import sample.model.Employee;
 import sample.util.DBUtil;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class EmployeeController {
@@ -36,7 +40,9 @@ public class EmployeeController {
     Label statusLabel;
     @FXML
     Button addButton;
-
+    @FXML
+    Button clearButton;
+    private Component frame;
 
 
     public void init() {
@@ -63,9 +69,13 @@ public class EmployeeController {
             public void handle(MouseEvent event) { deleteEmployee();
             }
         });
+        clearButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) { clearFields();
+            }
+        });
 
     }
-
     private void find() {
         DBUtil dbUtil = new DBUtil();
         ArrayList<Employee> employees;
@@ -91,7 +101,7 @@ public class EmployeeController {
       emailField.clear();
       telephoneField.clear();
       statusLabel.setText("Employee was updated");
-      statusLabel.setTextFill(Color.web("#ff0000"));
+      statusLabel.setTextFill(Color.web("#FF4500"));
     }
     private void createEmployee() {
         Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText());
@@ -104,8 +114,7 @@ public class EmployeeController {
         emailField.clear();
         telephoneField.clear();
         statusLabel.setText("Customer was created");
-
-
+        statusLabel.setTextFill(Color.web("#32CD32"));
     }
     private void deleteEmployee() {
         Employee emp = new Employee(Integer.parseInt(employeeID.getText()));
@@ -113,6 +122,26 @@ public class EmployeeController {
         dbUtil.deleteEmployee(emp);
         employeeID.clear();
         statusLabel.setText("Customer was deleted");
+        statusLabel.setTextFill(Color.web("#FF0000"));
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+        } else {
+
+        }
+    }
+    private void clearFields() {
+        employeeID.clear();
+        nameField.clear();
+        surnameField.clear();
+        emailField.clear();
+        telephoneField.clear();
+        statusLabel.setText("Fields were cleared");
+        statusLabel.setTextFill(Color.web("#008080"));
     }
 }
 
