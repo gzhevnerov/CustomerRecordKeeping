@@ -117,6 +117,15 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+    public void showEmployeeTable(Employee emp) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
 
 

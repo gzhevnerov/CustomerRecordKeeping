@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.view.TableView">
+  <children>
+    <TableView layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="25.0" text="employeeID" />
+        <TableColumn prefWidth="75.0" text="name" />
+        <TableColumn prefWidth="75.0" text="surname" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="135.0" text="email" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="173.0" text="telephone" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="67.0" text="qualification" />
+      </columns>
+    </TableView>
+  </children>
+</AnchorPane>
