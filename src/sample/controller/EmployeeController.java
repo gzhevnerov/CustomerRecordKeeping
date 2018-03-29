@@ -14,6 +14,7 @@ import sample.util.DBUtil;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -104,17 +105,40 @@ public class EmployeeController {
       statusLabel.setTextFill(Color.web("#FF4500"));
     }
     private void createEmployee() {
-        Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText());
-        System.out.println(nameField.getText());
-        System.out.println(emp.getName());
-        DBUtil dbUtil = new DBUtil();
-        dbUtil.createEmployee(emp);
+        List<String> choices = new ArrayList<>();
+        choices.add("hot");
+        choices.add("warm");
+        choices.add("cold");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("warm", choices);
+        dialog.setTitle("Customer qualification");
+        dialog.setHeaderText("Choose customer qualification");
+        dialog.setContentText("Chooses:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.get() == "hot") {
+            Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText(), "hot");
+            DBUtil dbUtil = new DBUtil();
+            dbUtil.createEmployee(emp);
+        }
+        if(result.get() == "warm") {
+            Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText(), "warm");
+            DBUtil dbUtil = new DBUtil();
+            dbUtil.createEmployee(emp);
+        }
+        if (result.get() == "cold") {
+            Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText(), "cold");
+            DBUtil dbUtil = new DBUtil();
+            dbUtil.createEmployee(emp);
+        }
+        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
+
         nameField.clear();
         surnameField.clear();
         emailField.clear();
         telephoneField.clear();
         statusLabel.setText("Customer was created");
         statusLabel.setTextFill(Color.web("#32CD32"));
+
     }
     private void deleteEmployee() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

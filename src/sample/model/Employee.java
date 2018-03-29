@@ -1,11 +1,13 @@
 package sample.model;
 
+
 public class Employee {
     private int id;
     private String name;
     private String surname;
     private String email;
     private String telephone;
+    private String qualification;
 
     public Employee(int id, String name, String surname, String email, String telephone) {
         this.id = id;
@@ -13,6 +15,14 @@ public class Employee {
         this.surname = surname;
         this.email = email;
         this.telephone = telephone;
+    }
+    public Employee(int id, String name, String surname, String email, String telephone, String qualification) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
+        this.qualification = qualification;
     }
 
     public Employee() {
@@ -26,6 +36,9 @@ public class Employee {
     }
     public Employee(int id) {
         this.id = id;
+    }
+    public Employee(String qualification) {
+        this.qualification = qualification;
     }
     public int getId() {
         return id;
@@ -65,5 +78,13 @@ public class Employee {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String name) {
+        this.name = qualification;
     }
 }

@@ -49,7 +49,8 @@ public class DBUtil {
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getString("email"),
-                        resultSet.getString("telephone")));
+                        resultSet.getString("telephone"),
+                        resultSet.getString("qualification")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,13 +86,14 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "insert into database_of_employee.employees (name, surname, email, telephone) values (?, ?, ?, ?)";
+        String statement = "insert into database_of_employee.employees (name, surname, email, telephone, qualification) values (?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, emp.getName());
             preparedStatement.setString(2, emp.getSurname());
             preparedStatement.setString(3, emp.getEmail());
             preparedStatement.setString(4, emp.getTelephone());
+            preparedStatement.setString(5, emp.getQualification());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
