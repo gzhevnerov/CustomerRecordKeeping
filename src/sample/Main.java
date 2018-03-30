@@ -14,6 +14,7 @@ import sample.util.DBUtil;
 
 import javax.print.DocFlavor;
 import javax.swing.*;
+import javax.swing.text.TableView;
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -30,6 +31,7 @@ public class Main extends Application {
         this.primaryStage.setTitle("Customer record-keeping");
         initRootLayout();
         showEmployeeOperationsView();
+
 
 
     }
@@ -60,9 +62,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-    
     public static void main(String[] args) {
-
         launch(args);
     }
 }

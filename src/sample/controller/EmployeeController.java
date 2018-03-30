@@ -1,18 +1,25 @@
 package sample.controller;
 
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import sample.Main;
 import sample.model.Employee;
 import sample.util.DBUtil;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +50,25 @@ public class EmployeeController {
     Button addButton;
     @FXML
     Button clearButton;
-    private Component frame;
+    @FXML
+    Button tableViewButton;
+    private ObservableList<Employee> usersData = FXCollections.observableArrayList();
+    @FXML
+    private TableView<Employee> tableUsers;
+    @FXML
+    private TableColumn<Employee, Integer> idColumn;
+    @FXML
+    private TableColumn<Employee, String> nameColumn;
+    @FXML
+    private TableColumn<Employee, String> surnameColumn;
+    @FXML
+    private TableColumn<Employee, String> emailColumn;
+    @FXML
+    private TableColumn<Employee, String> telephoneColumn;
+    @FXML
+    private TableColumn<Employee, String> qualColumn;
 
+    private Component frame;
 
     public void init() {
         searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -75,7 +99,20 @@ public class EmployeeController {
             public void handle(MouseEvent event) { clearFields();
             }
         });
-
+        tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    EmployeesListController elc = new EmployeesListController();
+                    loader.setController(elc);
+                    loader.setLocation(Main.class.getResource("view/TableView"));
+                    elc.init();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
     private void find() {
         DBUtil dbUtil = new DBUtil();
@@ -165,5 +202,21 @@ public class EmployeeController {
         statusLabel.setText("Fields were cleared");
         statusLabel.setTextFill(Color.web("#008080"));
     }
-}
+    private void initialize() {
 
+        initData();
+        idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
+        telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
+        qualColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("qualification"));
+        tableUsers.setItems(usersData);
+
+
+    }
+
+    public void initData() {
+        Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText());
+    }
+}

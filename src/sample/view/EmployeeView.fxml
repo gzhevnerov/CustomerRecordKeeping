@@ -35,6 +35,7 @@
       </font>
     </Label>
     <Button fx:id="clearButton" layoutX="183.0" layoutY="62.0" mnemonicParsing="false" text="Clear fields" />
+    <Button fx:id="tableViewButton" layoutX="337.0" layoutY="98.0" mnemonicParsing="false" text="TableView" />
   </children>
   <stylesheets>
     <URL value="@background.css" />
