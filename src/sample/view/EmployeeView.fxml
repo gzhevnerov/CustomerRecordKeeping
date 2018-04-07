@@ -57,7 +57,7 @@
       </stylesheets>
     </Button>
     <Button fx:id="tableViewButton" layoutX="170.0" layoutY="54.0" mnemonicParsing="false" text="TableView" />
-    <TableView id="employeeTable" editable="true" layoutX="22.0" layoutY="300.0" prefHeight="234.0" prefWidth="470.0" tableMenuButtonVisible="true">
+    <TableView id="employeeTable" fx:id="tableCustomer" editable="true" layoutX="22.0" layoutY="300.0" prefHeight="234.0" prefWidth="470.0" tableMenuButtonVisible="true">
       <columns>
         <TableColumn prefWidth="57.0" text="Id" fx:id="idColumn" />
         <TableColumn prefWidth="75.0" text="Name" fx:id="nameColumn" />

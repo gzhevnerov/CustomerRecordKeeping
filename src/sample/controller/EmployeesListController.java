@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,8 +27,12 @@ public class EmployeesListController {
     private TableColumn<Employee, String> telephoneColumn;
     @FXML
     private TableColumn<Employee, String> qualColumn;
+    @FXML
+    Button tableViewButton;
+    private TableView<Employee> tableView;
 
-    public void init() {
+
+    public void initialize() {
         initData();
         idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
@@ -35,12 +40,23 @@ public class EmployeesListController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
         telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
         qualColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("qualification"));
+        tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                initData();
+            }
+        });
         tableCustomer.setItems(usersData);
     }
 
-    public void initData() {
-        Employee elc = new Employee(1);
-
+    private void initData() {
+        usersData.add(new Employee(1, "qwdqd", "qwdqwd","qwdqwd", "qwdq", "qwdqw"));
+        usersData.add(new Employee(2, "qwdqd", "qwdqwd","qwdqwd", "qwdq", "qwdqw"));
+        usersData.add(new Employee(3, "qwdqd", "qwdqwd","qwdqwd", "qwdq", "qwdqw"));
+        usersData.add(new Employee(4, "qwdqd", "qwdqwd","qwdqwd", "qwdq", "qwdqw"));
+        usersData.add(new Employee(5, "qwdqd", "qwdqwd","qwdqwd", "qwdq", "qwdqw"));
     }
+
 }
+
 

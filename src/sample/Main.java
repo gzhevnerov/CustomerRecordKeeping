@@ -71,7 +71,7 @@ public class Main extends Application {
         Scene scene = new Scene(tableView);
         primaryStage.setScene(scene);
         primaryStage.show();
-        elc.init();
+        elc.initialize();
 }
     public static void main(String[] args) {
         launch(args);

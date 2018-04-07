@@ -124,8 +124,30 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+        public void showInTableView(Employee emp) {
+            Connection connection = null;
+            try {
+                connection = DriverManager.getConnection(connStr, "java", "password");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            String statement = "SELECT * FROM database_of_employee.employees";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(statement);
+                preparedStatement.setString(1, emp.nameProperty());
+                preparedStatement.setString(2, emp.surnameProperty());
+                preparedStatement.setString(3, emp.emailProperty());
+                preparedStatement.setString(4, emp.telephoneProperty());
+                preparedStatement.setString(5, emp.qualProperty());
+                preparedStatement.executeUpdate();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
-}
+
 
 

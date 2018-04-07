@@ -100,12 +100,7 @@ public class EmployeeController {
         });
         tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
-                FXMLLoader loader = new FXMLLoader();
-                EmployeesListController elc = new EmployeesListController();
-                loader.setController(elc);
-                loader.setLocation(Main.class.getResource("view/TableView"));
-                elc.init();
+            public void handle(MouseEvent event) { fillTableView();
             }
         });
 
@@ -235,6 +230,11 @@ public class EmployeeController {
 
     public void initData() {
         Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText());
+    }
+    private void fillTableView() {
+        Employee emp = new Employee(0, "qwd", "qwdq", "qwdqwd","qwdwqd", "qwd");
+        DBUtil dbUtil = new DBUtil();
+        dbUtil.updateEmployee(emp);
     }
 }
 
