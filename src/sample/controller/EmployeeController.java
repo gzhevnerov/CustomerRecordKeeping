@@ -37,11 +37,9 @@ public class EmployeeController {
     @FXML
     TextField emailField;
     @FXML
-    TextField telephoneField;
-    @FXML
     Button updateButton;
     @FXML
-    TextField operationField;
+    TextField telephoneField;
     @FXML
     Button deleteButton;
     @FXML
@@ -52,23 +50,9 @@ public class EmployeeController {
     Button clearButton;
     @FXML
     Button tableViewButton;
-    private ObservableList<Employee> usersData = FXCollections.observableArrayList();
-    @FXML
-    private TableView<Employee> tableUsers;
-    @FXML
-    private TableColumn<Employee, Integer> idColumn;
-    @FXML
-    private TableColumn<Employee, String> nameColumn;
-    @FXML
-    private TableColumn<Employee, String> surnameColumn;
-    @FXML
-    private TableColumn<Employee, String> emailColumn;
-    @FXML
-    private TableColumn<Employee, String> telephoneColumn;
-    @FXML
-    private TableColumn<Employee, String> qualColumn;
 
     private Component frame;
+
 
     public void init() {
         searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -102,17 +86,15 @@ public class EmployeeController {
         tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    FXMLLoader loader = new FXMLLoader();
-                    EmployeesListController elc = new EmployeesListController();
-                    loader.setController(elc);
-                    loader.setLocation(Main.class.getResource("view/TableView"));
-                    elc.init();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                FXMLLoader loader = new FXMLLoader();
+                EmployeesListController elc = new EmployeesListController();
+                loader.setController(elc);
+                loader.setLocation(Main.class.getResource("view/TableView"));
+                elc.init();
             }
         });
+
+
     }
     private void find() {
         DBUtil dbUtil = new DBUtil();
@@ -143,6 +125,38 @@ public class EmployeeController {
     }
     private void createEmployee() {
         List<String> choices = new ArrayList<>();
+        if(nameField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Fill name field");
+            alert.setContentText("Ooops, there was an error!");
+            alert.showAndWait();
+            return;
+        }
+        if(surnameField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Fill surname field");
+            alert.setContentText("Ooops, there was an error!");
+            alert.showAndWait();
+            return;
+        }
+        if(emailField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Fill email field");
+            alert.setContentText("Ooops, there was an error!");
+            alert.showAndWait();
+            return;
+        }
+        if(telephoneField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Fill telephone field");
+            alert.setContentText("Ooops, there was an error!");
+            alert.showAndWait();
+            return;
+        }
         choices.add("hot");
         choices.add("warm");
         choices.add("cold");
@@ -201,19 +215,6 @@ public class EmployeeController {
         telephoneField.clear();
         statusLabel.setText("Fields were cleared");
         statusLabel.setTextFill(Color.web("#008080"));
-    }
-    private void initialize() {
-
-        initData();
-        idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
-        telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
-        qualColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("qualification"));
-        tableUsers.setItems(usersData);
-
-
     }
 
     public void initData() {
