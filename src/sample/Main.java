@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.controller.EmployeeController;
+import sample.controller.EmployeesListController;
 import sample.model.Employee;
 import sample.util.DBUtil;
 
@@ -24,6 +25,7 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private Component frame;
+    private AnchorPane tableView;
 
     @Override
     public void start(Stage primaryStage) {
@@ -31,9 +33,6 @@ public class Main extends Application {
         this.primaryStage.setTitle("Customer record-keeping");
         initRootLayout();
         showEmployeeOperationsView();
-
-
-
     }
 
     public void initRootLayout() {
@@ -48,6 +47,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
     public void showEmployeeOperationsView() {
         try {
             EmployeeController ec = new EmployeeController();
@@ -56,14 +56,26 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/EmployeeView.fxml"));
             AnchorPane employeeOperationsView = (AnchorPane) loader.load();
             rootLayout.setCenter(employeeOperationsView);
-           // rootLayout.setBackground();
+            // rootLayout.setBackground();
             ec.init();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    public void showTableView() throws IOException {
+        EmployeesListController elc = new EmployeesListController();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setController(elc);
+        loader.setLocation(Main.class.getResource("view/TableView"));
+        tableView = (AnchorPane) loader.load();
+        Scene scene = new Scene(tableView);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        elc.init();
+}
     public static void main(String[] args) {
         launch(args);
+
     }
 }
 

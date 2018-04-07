@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.regex.Pattern;
 
 
 public class EmployeeController {
@@ -50,11 +53,23 @@ public class EmployeeController {
     Button clearButton;
     @FXML
     Button tableViewButton;
+    private TableColumn<Employee, Integer>  idColumn;
+    @FXML
+    private TableColumn<Employee, String>  nameColumn;
+    @FXML
+    private TableColumn<Employee, String> surnameColumn;
+    @FXML
+    private TableColumn<Employee, String> emailColumn;
+    @FXML
+    private TableColumn<Employee, String> telephoneColumn;
+    @FXML
+    private TableColumn<Employee, String> qualColumn;
 
     private Component frame;
-
+    private Executor exec;
 
     public void init() {
+
         searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -157,6 +172,7 @@ public class EmployeeController {
             alert.showAndWait();
             return;
         }
+
         choices.add("hot");
         choices.add("warm");
         choices.add("cold");
@@ -221,3 +237,6 @@ public class EmployeeController {
         Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText());
     }
 }
+
+
+
