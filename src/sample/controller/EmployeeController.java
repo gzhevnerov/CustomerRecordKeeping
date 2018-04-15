@@ -1,11 +1,14 @@
 package sample.controller;
 
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,19 +16,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import sample.Main;
 import sample.model.Employee;
 import sample.util.DBUtil;
 
-import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.regex.Pattern;
 
 
 public class EmployeeController {
@@ -53,6 +51,13 @@ public class EmployeeController {
     Button clearButton;
     @FXML
     Button tableViewButton;
+    @FXML
+    CheckBox checkBox;
+    @FXML
+    TableView<Employee> customersTableView;
+    @FXML
+    private ObservableList<Employee> tableData = FXCollections.observableArrayList();
+    @FXML
     private TableColumn<Employee, Integer>  idColumn;
     @FXML
     private TableColumn<Employee, String>  nameColumn;
@@ -65,22 +70,18 @@ public class EmployeeController {
     @FXML
     private TableColumn<Employee, String> qualColumn;
 
-    private Component frame;
-    private Executor exec;
 
     public void init() {
 
         searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
-                find();
+            public void handle(MouseEvent event) { find();
             }
         });
 
         updateButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
-                updateEmployee();
+            public void handle(MouseEvent event) { updateEmployee();
             }
         });
         addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -100,11 +101,10 @@ public class EmployeeController {
         });
         tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { fillTableView();
+            public void handle(MouseEvent event) {
+                fillTableView();
             }
         });
-
-
     }
     private void find() {
         DBUtil dbUtil = new DBUtil();
@@ -120,8 +120,15 @@ public class EmployeeController {
         emailField.setText(employees.get(0).getEmail());
         telephoneField.setText(employees.get(0).getTelephone());
     }
-
     private void updateEmployee() {
+        if(employeeID.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Fill employee Id field");
+            alert.setContentText("Ooops, there was an error!");
+            alert.showAndWait();
+            return;
+        }
       Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText());
       DBUtil dbUtil = new DBUtil();
       dbUtil.updateEmployee(emp);
@@ -135,6 +142,7 @@ public class EmployeeController {
     }
     private void createEmployee() {
         List<String> choices = new ArrayList<>();
+        List<String> customertype = new ArrayList<>();
         if(nameField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
@@ -171,28 +179,23 @@ public class EmployeeController {
         choices.add("hot");
         choices.add("warm");
         choices.add("cold");
+        customertype.add("ordinary");
+        customertype.add("potential");
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>("warm", choices);
         dialog.setTitle("Customer qualification");
         dialog.setHeaderText("Choose customer qualification");
         dialog.setContentText("Chooses:");
         Optional<String> result = dialog.showAndWait();
-        if (result.get() == "hot") {
-            Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText(), "hot");
+        ChoiceDialog<String> type = new ChoiceDialog<>("ordinary", customertype);
+        type.setTitle("Customer type");
+        type.setHeaderText("Choose customer type");
+        type.setContentText("Chooses:");
+        Optional<String> resulttype = type.showAndWait();
+
+            Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText(), result.get(), resulttype.get());
             DBUtil dbUtil = new DBUtil();
             dbUtil.createEmployee(emp);
-        }
-        if(result.get() == "warm") {
-            Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText(), "warm");
-            DBUtil dbUtil = new DBUtil();
-            dbUtil.createEmployee(emp);
-        }
-        if (result.get() == "cold") {
-            Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText(), "cold");
-            DBUtil dbUtil = new DBUtil();
-            dbUtil.createEmployee(emp);
-        }
-        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
 
         nameField.clear();
         surnameField.clear();
@@ -228,15 +231,29 @@ public class EmployeeController {
         statusLabel.setTextFill(Color.web("#008080"));
     }
 
-    public void initData() {
-        Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText());
-    }
-    private void fillTableView() {
-        Employee emp = new Employee(0, "qwd", "qwdq", "qwdqwd","qwdwqd", "qwd");
-        DBUtil dbUtil = new DBUtil();
-        dbUtil.updateEmployee(emp);
-    }
-}
+   public ObservableList<Employee> getCustomerData() {
+    return tableData;
+   }
 
+
+     public void fillTableView() {
+        DBUtil dbUtil = new DBUtil();
+        ObservableList<Employee> tableData = FXCollections.observableArrayList(dbUtil.getAllCustomers());
+        System.out.println(tableData.size());
+         TableColumn<Employee, Integer> idColumn = new TableColumn<Employee, Integer>("id");
+         TableColumn<Employee, String> nameColumn = new TableColumn<Employee, String>("name");
+         TableColumn<Employee, String> surnameColumn = new TableColumn<Employee, String>("surname");
+         TableColumn<Employee, String> emailColumn = new TableColumn<Employee, String>("email");
+         TableColumn<Employee, String> telephoneColumn = new TableColumn<Employee, String>("telephone");
+         TableColumn<Employee, String> qualColumn = new TableColumn<Employee, String>("qualification");
+         idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
+         nameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
+         surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
+         emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
+         telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
+         qualColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("qualification"));
+         customersTableView.setItems(tableData);
+     }
+}
 
 

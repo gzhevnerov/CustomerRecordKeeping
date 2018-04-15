@@ -1,10 +1,7 @@
 package sample.model;
 
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class Employee {
     private int id;
@@ -13,6 +10,25 @@ public class Employee {
     private String email;
     private String telephone;
     private String qualification;
+    private String customertype;
+
+    public void setCustomertype(String customertype) {
+        this.customertype = customertype;
+    }
+
+    public String getCustomertype() {
+        return customertype;
+    }
+
+    public Employee(int id, String name, String surname, String email, String telephone, String qualification, String customertype) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
+        this.qualification = qualification;
+        this.customertype = customertype;
+    }
 
     public Employee(int id, String name, String surname, String email, String telephone) {
         this.id = id;
@@ -118,4 +134,6 @@ public class Employee {
     public String qualProperty() {
         return qualification;
     }
+
 }
+

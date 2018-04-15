@@ -46,7 +46,7 @@
     </Button>
     <TextField fx:id="telephoneField" layoutX="84.0" layoutY="193.0" prefWidth="184.0" promptText="example +375(44, 33, 29, 25)..." text="" />
     <Label layoutX="18.0" layoutY="195.0" text="Telephone" />
-    <Label fx:id="statusLabel" layoutX="37.0" layoutY="243.0" prefHeight="52.0" prefWidth="207.0" text="">
+    <Label fx:id="statusLabel" layoutX="38.0" layoutY="243.0" prefHeight="52.0" prefWidth="207.0" text="">
       <font>
         <Font size="15.0" />
       </font>
@@ -56,8 +56,8 @@
         <URL value="@clearFieldsButton.css" />
       </stylesheets>
     </Button>
-    <Button fx:id="tableViewButton" layoutX="170.0" layoutY="54.0" mnemonicParsing="false" text="TableView" />
-    <TableView id="employeeTable" fx:id="tableCustomer" editable="true" layoutX="22.0" layoutY="300.0" prefHeight="234.0" prefWidth="470.0" tableMenuButtonVisible="true">
+    <Button fx:id="tableViewButton" layoutX="430.0" layoutY="26.0" mnemonicParsing="false" text="TableView" />
+    <TableView fx:id="customersTableView" editable="true" layoutX="22.0" layoutY="300.0" prefHeight="234.0" prefWidth="470.0" tableMenuButtonVisible="true">
       <columns>
         <TableColumn prefWidth="57.0" text="Id" fx:id="idColumn" />
         <TableColumn prefWidth="75.0" text="Name" fx:id="nameColumn" />
@@ -67,6 +67,7 @@
         <TableColumn prefWidth="93.0" text="Qualification" fx:id="qualColumn" />
       </columns>
     </TableView>
+    <CheckBox id="checkbox" fx:id="cb" layoutX="157.0" layoutY="25.0" mnemonicParsing="false" prefHeight="39.0" text="Ordinary/potential" />
   </children>
   <stylesheets>
     <URL value="@background.css" />

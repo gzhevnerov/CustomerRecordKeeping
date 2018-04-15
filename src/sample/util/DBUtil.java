@@ -1,5 +1,7 @@
 package sample.util;
 
+
+import sample.model.Customer;
 import sample.model.Employee;
 
 import java.sql.*;
@@ -86,7 +88,7 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "insert into database_of_employee.employees (name, surname, email, telephone, qualification) values (?, ?, ?, ?, ?)";
+        String statement = "insert into database_of_employee.employees (name, surname, email, telephone, qualification, customer_type) values (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, emp.getName());
@@ -94,6 +96,7 @@ public class DBUtil {
             preparedStatement.setString(3, emp.getEmail());
             preparedStatement.setString(4, emp.getTelephone());
             preparedStatement.setString(5, emp.getQualification());
+            preparedStatement.setString(6, emp.getCustomertype());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -117,15 +120,8 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
-    public void showEmployeeTable(Employee emp) {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-        public void showInTableView(Employee emp) {
+        public ArrayList<Employee> getAllCustomers() {
+            ArrayList<Employee> employees = new ArrayList<>();
             Connection connection = null;
             try {
                 connection = DriverManager.getConnection(connStr, "java", "password");
@@ -134,19 +130,22 @@ public class DBUtil {
             }
             String statement = "SELECT * FROM database_of_employee.employees";
             try {
-                PreparedStatement preparedStatement = connection.prepareStatement(statement);
-                preparedStatement.setString(1, emp.nameProperty());
-                preparedStatement.setString(2, emp.surnameProperty());
-                preparedStatement.setString(3, emp.emailProperty());
-                preparedStatement.setString(4, emp.telephoneProperty());
-                preparedStatement.setString(5, emp.qualProperty());
-                preparedStatement.executeUpdate();
-                connection.close();
+                Statement st = connection.createStatement();
+                ResultSet set = st.executeQuery(statement);
+                while(set.next()) {
+                    employees.add(new Employee(set.getInt("employee_id"),
+                            set.getString("name"),
+                            set.getString("surname"),
+                            set.getString("email"),
+                            set.getString("telephone"),
+                            set.getString("qualification")));
+                }
+                st.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return employees;
         }
-
     }
 
 

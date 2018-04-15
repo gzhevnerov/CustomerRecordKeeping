@@ -1,16 +1,15 @@
 package sample.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class Customer {
-    private final IntegerProperty id;
-    private final StringProperty name;
-    private final StringProperty surname;
-    private final StringProperty email;
-    private final StringProperty telephone;
-    private final StringProperty qual;
 
+    public SimpleIntegerProperty id = new SimpleIntegerProperty();
+    public SimpleStringProperty name = new SimpleStringProperty();
+    public SimpleStringProperty surname = new SimpleStringProperty();
+    public SimpleStringProperty email = new SimpleStringProperty();
+    public SimpleStringProperty telephone = new SimpleStringProperty();
+    public SimpleStringProperty qualification = new SimpleStringProperty();
 
     public void setId(int id) {
         this.id.set(id);
@@ -32,25 +31,16 @@ public class Customer {
         this.telephone.set(telephone);
     }
 
-    public void setQual(String qual) {
-        this.qual.set(qual);
-    }
-
-    public Customer(IntegerProperty id, StringProperty name, StringProperty surname, StringProperty email, StringProperty telephone, StringProperty qual) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.telephone = telephone;
-        this.qual = qual;
-
+    public void setQualification(String qualification) {
+        this.qualification.set(qualification);
     }
 
     public int getId() {
+
         return id.get();
     }
 
-    public IntegerProperty idProperty() {
+    public SimpleIntegerProperty idProperty() {
         return id;
     }
 
@@ -58,7 +48,7 @@ public class Customer {
         return name.get();
     }
 
-    public StringProperty nameProperty() {
+    public SimpleStringProperty nameProperty() {
         return name;
     }
 
@@ -66,7 +56,7 @@ public class Customer {
         return surname.get();
     }
 
-    public StringProperty surnameProperty() {
+    public SimpleStringProperty surnameProperty() {
         return surname;
     }
 
@@ -74,7 +64,7 @@ public class Customer {
         return email.get();
     }
 
-    public StringProperty emailProperty() {
+    public SimpleStringProperty emailProperty() {
         return email;
     }
 
@@ -82,15 +72,25 @@ public class Customer {
         return telephone.get();
     }
 
-    public StringProperty telephoneProperty() {
+    public SimpleStringProperty telephoneProperty() {
         return telephone;
     }
 
-    public String getQual() {
-        return qual.get();
+    public String getQualification() {
+        return qualification.get();
     }
 
-    public StringProperty qualProperty() {
-        return qual;
+    public SimpleStringProperty qualificationProperty() {
+        return qualification;
+    }
+
+    public Customer(SimpleIntegerProperty id, SimpleStringProperty name, SimpleStringProperty surname, SimpleStringProperty email, SimpleStringProperty telephone, SimpleStringProperty qualification) {
+
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
+        this.qualification = qualification;
     }
 }
