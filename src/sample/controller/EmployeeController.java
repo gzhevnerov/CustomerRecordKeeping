@@ -7,23 +7,37 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import sample.Main;
 import sample.model.Employee;
 import sample.util.DBUtil;
 
+import javax.security.auth.callback.Callback;
 import java.awt.*;
+import java.io.IOException;
 import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class EmployeeController {
@@ -52,11 +66,15 @@ public class EmployeeController {
     @FXML
     Button tableViewButton;
     @FXML
+    Button transactionButton;
+    @FXML
     CheckBox checkBox;
     @FXML
     TableView<Employee> customersTableView;
     @FXML
-    private ObservableList<Employee> tableData = FXCollections.observableArrayList();
+    private AnchorPane secondaryLayout;
+    @FXML
+    private ObservableList<Employee> tableData;
     @FXML
     private TableColumn<Employee, Integer>  idColumn;
     @FXML
@@ -69,34 +87,41 @@ public class EmployeeController {
     private TableColumn<Employee, String> telephoneColumn;
     @FXML
     private TableColumn<Employee, String> qualColumn;
+    @FXML
+    private Stage tw;
 
 
     public void init() {
 
         searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { find();
+            public void handle(MouseEvent event) {
+                find();
             }
         });
 
         updateButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { updateEmployee();
+            public void handle(MouseEvent event) {
+                updateEmployee();
             }
         });
         addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { createEmployee();
+            public void handle(MouseEvent event) {
+                createEmployee();
             }
         });
         deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { deleteEmployee();
+            public void handle(MouseEvent event) {
+                deleteEmployee();
             }
         });
         clearButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { clearFields();
+            public void handle(MouseEvent event) {
+                clearFields();
             }
         });
         tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -105,7 +130,24 @@ public class EmployeeController {
                 fillTableView();
             }
         });
+        transactionButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                  FXMLLoader loader = new FXMLLoader();
+                  loader.setLocation(getClass().getResource("/sample/view/TW.fxml"));
+                  secondaryLayout = (AnchorPane) loader.load();
+                  Scene scene = new Scene(secondaryLayout);
+                  Stage stage = new Stage();
+                  stage.setScene(scene);
+                  stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
+
     private void find() {
         DBUtil dbUtil = new DBUtil();
         ArrayList<Employee> employees;
@@ -143,7 +185,7 @@ public class EmployeeController {
     private void createEmployee() {
         List<String> choices = new ArrayList<>();
         List<String> customertype = new ArrayList<>();
-        if(nameField.getText().isEmpty()) {
+        if (nameField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Fill name field");
@@ -151,7 +193,7 @@ public class EmployeeController {
             alert.showAndWait();
             return;
         }
-        if(surnameField.getText().isEmpty()) {
+        if (surnameField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Fill surname field");
@@ -159,7 +201,7 @@ public class EmployeeController {
             alert.showAndWait();
             return;
         }
-        if(emailField.getText().isEmpty()) {
+        if (emailField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Fill email field");
@@ -167,7 +209,7 @@ public class EmployeeController {
             alert.showAndWait();
             return;
         }
-        if(telephoneField.getText().isEmpty()) {
+        if (telephoneField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Fill telephone field");
@@ -191,12 +233,10 @@ public class EmployeeController {
         type.setTitle("Customer type");
         type.setHeaderText("Choose customer type");
         type.setContentText("Chooses:");
-        Optional<String> resulttype = type.showAndWait();
-
-            Employee emp = new Employee(0,nameField.getText(),surnameField.getText(), emailField.getText(), telephoneField.getText(), result.get(), resulttype.get());
-            DBUtil dbUtil = new DBUtil();
-            dbUtil.createEmployee(emp);
-
+        Optional<String> resultType = type.showAndWait();
+        Employee emp = new Employee(0, nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), result.get(), resultType.get());
+        DBUtil dbUtil = new DBUtil();
+        dbUtil.createEmployee(emp);
         nameField.clear();
         surnameField.clear();
         emailField.clear();
@@ -247,12 +287,13 @@ public class EmployeeController {
          TableColumn<Employee, String> telephoneColumn = new TableColumn<Employee, String>("telephone");
          TableColumn<Employee, String> qualColumn = new TableColumn<Employee, String>("qualification");
          idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
-         nameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
+         nameColumn.setCellValueFactory(new PropertyValueFactory< Employee, String>("name"));
          surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
          emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
          telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
          qualColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("qualification"));
          customersTableView.setItems(tableData);
+         customersTableView.getColumns().addAll();
      }
 }
 
