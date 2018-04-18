@@ -1,5 +1,6 @@
 package sample.controller;
 
+import javafx.collections.ObservableList;
 import sample.model.Employee;
 import sample.util.DBUtil;
 

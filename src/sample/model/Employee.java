@@ -11,6 +11,8 @@ public class Employee {
     private String telephone;
     private String qualification;
     private String customertype;
+    private String country;
+    private String customerclass;
 
     public void setCustomertype(String customertype) {
         this.customertype = customertype;
@@ -54,6 +56,43 @@ public class Employee {
         this.telephone = telephone;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCustomerclass() {
+        return customerclass;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCustomerclass(String customerclass) {
+        this.customerclass = customerclass;
+    }
+
+    public Employee(int id, String name, String surname, String email, String telephone, String qualification, String customertype, String country, String customerclass) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
+        this.qualification = qualification;
+        this.customertype = customertype;
+        this.country = country;
+        this.customerclass = customerclass;
+    }
+    public Employee(int id, String name, String surname, String country, String email, String telephone, String qualification, String customerclass) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
+        this.qualification = qualification;
+        this.country = country;
+        this.customerclass = customerclass;
+    }
 
     public Employee(int id) {
         this.id = id;
@@ -112,27 +151,27 @@ public class Employee {
     }
 
     public int idProperty() {
-        return id;
+        return this.id;
     }
 
     public String nameProperty() {
-        return name;
+        return this.name = nameProperty();
     }
 
     public String surnameProperty() {
-        return surname;
+        return this.surname = surnameProperty();
     }
 
     public String emailProperty() {
-        return email;
+        return this.email = emailProperty();
     }
 
     public String telephoneProperty() {
-        return telephone;
+        return this.telephone = telephoneProperty();
     }
 
     public String qualProperty() {
-        return qualification;
+        return this.qualification = qualProperty();
     }
 
 }

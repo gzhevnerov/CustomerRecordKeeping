@@ -1,11 +1,10 @@
 package sample.util;
 
 
-import sample.model.Customer;
 import sample.model.Employee;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class DBUtil {
     private static final String JDBC_DRIVER = "";
@@ -50,9 +49,11 @@ public class DBUtil {
                 employees.add(new Employee(resultSet.getInt("employee_id"),
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
+                        resultSet.getString("country"),
                         resultSet.getString("email"),
                         resultSet.getString("telephone"),
-                        resultSet.getString("qualification")));
+                        resultSet.getString("qualification"),
+                        resultSet.getString("customerclass")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,14 +67,16 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "UPDATE database_of_employee.employees SET name = ?, surname = ?, email = ?, telephone = ? where employee_id = ?";
+        String statement = "UPDATE database_of_employee.employees SET name = ?, surname = ?, email = ?, telephone = ?, country = ?, customer_class = ? where employee_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, emp.getName());
             preparedStatement.setString(2, emp.getSurname());
             preparedStatement.setString(3, emp.getEmail());
             preparedStatement.setString(4, emp.getTelephone());
-            preparedStatement.setInt(5, emp.getId());
+            preparedStatement.setString(5, emp.getCountry());
+            preparedStatement.setString(6, emp.getCustomerclass());
+            preparedStatement.setInt(7, emp.getId());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -88,7 +91,7 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "insert into database_of_employee.employees (name, surname, email, telephone, qualification, customer_type) values (?, ?, ?, ?, ?, ?)";
+        String statement = "insert into database_of_employee.employees (name, surname, email, telephone, qualification, customer_type, country, customer_class) values (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, emp.getName());
@@ -97,6 +100,8 @@ public class DBUtil {
             preparedStatement.setString(4, emp.getTelephone());
             preparedStatement.setString(5, emp.getQualification());
             preparedStatement.setString(6, emp.getCustomertype());
+            preparedStatement.setString(7, emp.getCountry());
+            preparedStatement.setString(8, emp.getCustomerclass());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -121,7 +126,7 @@ public class DBUtil {
         }
     }
         public ArrayList<Employee> getAllCustomers() {
-            ArrayList<Employee> employees = new ArrayList<>();
+          ArrayList<Employee> employees = new ArrayList<Employee>();
             Connection connection = null;
             try {
                 connection = DriverManager.getConnection(connStr, "java", "password");

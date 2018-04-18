@@ -9,55 +9,59 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="626.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <Label layoutX="22.0" layoutY="34.0" text="Customer ID">
+    <Label layoutX="44.0" layoutY="34.0" text="Customer ID">
       <font>
         <Font size="12.0" />
       </font>
     </Label>
-    <TextField fx:id="employeeID" layoutX="22.0" layoutY="60.0" prefWidth="79.0" promptText="Customer ID" />
-    <Label layoutX="22.0" layoutY="106.0" text="Name" />
-    <Label layoutX="22.0" layoutY="136.0" text="Surname" />
-    <Label layoutX="22.0" layoutY="167.0" text="Email" />
-    <TextField fx:id="nameField" layoutX="84.0" layoutY="103.0" prefWidth="184.0" promptText="Name" />
-    <TextField fx:id="surnameField" layoutX="84.0" layoutY="132.0" prefWidth="184.0" promptText="Surname" text="" />
-    <TextField fx:id="emailField" layoutX="84.0" layoutY="163.0" prefWidth="184.0" promptText="example login@gmail.com" text="" />
-    <Button fx:id="searchButton" layoutX="321.0" layoutY="25.0" mnemonicParsing="false" text="Search">
+    <TextField fx:id="employeeID" layoutX="44.0" layoutY="60.0" prefWidth="79.0" promptText="Customer ID" />
+    <Label layoutX="64.0" layoutY="103.0" text="Name" />
+    <Label layoutX="50.0" layoutY="134.0" text="Surname" />
+    <Label layoutX="69.0" layoutY="165.0" text="Email" />
+    <TextField fx:id="nameField" layoutX="106.0" layoutY="103.0" prefWidth="184.0" promptText="Name" />
+    <TextField fx:id="surnameField" layoutX="106.0" layoutY="132.0" prefWidth="184.0" promptText="Surname" text="" />
+    <TextField fx:id="emailField" layoutX="106.0" layoutY="163.0" prefWidth="184.0" promptText="example login@gmail.com" text="" />
+    <Button fx:id="searchButton" layoutX="343.0" layoutY="25.0" mnemonicParsing="false" prefWidth="116.0" text="Search">
       <stylesheets>
-        <URL value="@searchButton.css" />
+        <URL value="@buttons.css" />
       </stylesheets>
     </Button>
-    <Button fx:id="deleteButton" layoutX="322.0" layoutY="134.0" mnemonicParsing="false" text="Delete">
+    <Button fx:id="deleteButton" layoutX="344.0" layoutY="134.0" mnemonicParsing="false" prefWidth="116.0" text="Delete">
       <stylesheets>
-        <URL value="@deleteButton.css" />
-        <URL value="@deleteButton.css" />
+        <URL value="@buttons.css" />
+        <URL value="@buttons.css" />
       </stylesheets>
     </Button>
-    <Button fx:id="updateButton" layoutX="321.0" layoutY="190.0" mnemonicParsing="false" prefWidth="95.9998779296875" text="Update">
+    <Button fx:id="updateButton" layoutX="343.0" layoutY="190.0" mnemonicParsing="false" prefWidth="117.0" text="Update">
       <stylesheets>
-        <URL value="@updateButton.css" />
+        <URL value="@buttons.css" />
       </stylesheets>
     </Button>
-    <Button fx:id="addButton" layoutX="321.0" layoutY="82.0" mnemonicParsing="false" prefWidth="95.0" text="Add">
+    <Button fx:id="addButton" layoutX="344.0" layoutY="80.0" mnemonicParsing="false" prefWidth="116.0" text="Add">
       <stylesheets>
-        <URL value="@button.css" />
+        <URL value="@buttons.css" />
       </stylesheets>
     </Button>
-    <TextField fx:id="telephoneField" layoutX="84.0" layoutY="193.0" prefWidth="184.0" promptText="example +375(44, 33, 29, 25)..." text="" />
-    <Label layoutX="18.0" layoutY="195.0" text="Telephone" />
-    <Label fx:id="statusLabel" layoutX="38.0" layoutY="243.0" prefHeight="52.0" prefWidth="207.0" text="">
+    <TextField fx:id="telephoneField" layoutX="106.0" layoutY="193.0" prefWidth="184.0" promptText="example +375(44, 33, 29, 25)..." text="" />
+    <Label layoutX="42.0" layoutY="196.0" text="Telephone" />
+    <Label fx:id="statusLabel" layoutX="137.0" layoutY="51.0" prefHeight="52.0" prefWidth="207.0" text="" underline="false">
       <font>
         <Font size="15.0" />
       </font>
     </Label>
-    <Button fx:id="clearButton" layoutX="322.0" layoutY="243.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="95.0" text="Clear">
+    <Button fx:id="clearButton" layoutX="344.0" layoutY="243.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="117.0" text="Clear">
       <stylesheets>
-        <URL value="@clearFieldsButton.css" />
+        <URL value="@buttons.css" />
       </stylesheets>
     </Button>
-    <Button fx:id="tableViewButton" layoutX="430.0" layoutY="26.0" mnemonicParsing="false" text="TableView" />
-    <TableView fx:id="customersTableView" editable="true" layoutX="22.0" layoutY="300.0" prefHeight="234.0" prefWidth="470.0" tableMenuButtonVisible="true">
+    <Button fx:id="tableViewButton" layoutX="344.0" layoutY="300.0" mnemonicParsing="false" prefWidth="117.0" text="TableView">
+      <stylesheets>
+        <URL value="@buttons.css" />
+      </stylesheets>
+    </Button>
+    <TableView fx:id="customersTableView" editable="true" layoutX="40.0" layoutY="352.0" prefHeight="234.0" prefWidth="470.0" tableMenuButtonVisible="true">
       <columns>
         <TableColumn prefWidth="57.0" text="Id" fx:id="idColumn" />
         <TableColumn prefWidth="75.0" text="Name" fx:id="nameColumn" />
@@ -67,7 +71,12 @@
         <TableColumn prefWidth="93.0" text="Qualification" fx:id="qualColumn" />
       </columns>
     </TableView>
-    <CheckBox id="checkbox" fx:id="cb" layoutX="157.0" layoutY="25.0" mnemonicParsing="false" prefHeight="39.0" text="Ordinary/potential" />
+    <CheckBox id="checkbox" fx:id="cb" layoutX="179.0" layoutY="25.0" mnemonicParsing="false" prefHeight="39.0" text="Ordinary/potential" />
+    <Button fx:id="transactionButton" layoutX="103.0" layoutY="309.0" mnemonicParsing="false" text="Open marketing offer" />
+    <TextField id="surnameField" fx:id="countryField" layoutX="106.0" layoutY="221.0" prefWidth="184.0" promptText="Surname" text="" />
+    <TextField id="surnameField" fx:id="customerClassField" layoutX="106.0" layoutY="251.0" prefWidth="184.0" promptText="Surname" text="" />
+    <Label layoutX="55.0" layoutY="221.0" text="Country" />
+    <Label layoutX="18.0" layoutY="254.0" text="Customer class" />
   </children>
   <stylesheets>
     <URL value="@background.css" />

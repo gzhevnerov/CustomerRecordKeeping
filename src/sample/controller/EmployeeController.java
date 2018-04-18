@@ -1,17 +1,12 @@
 package sample.controller;
 
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -20,24 +15,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import sample.Main;
 import sample.model.Employee;
 import sample.util.DBUtil;
 
-import javax.security.auth.callback.Callback;
 import java.awt.*;
 import java.io.IOException;
-import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class EmployeeController {
@@ -51,6 +38,10 @@ public class EmployeeController {
     TextField surnameField;
     @FXML
     TextField emailField;
+    @FXML
+    TextField countryField;
+    @FXML
+    TextField customerClassField;
     @FXML
     Button updateButton;
     @FXML
@@ -89,6 +80,8 @@ public class EmployeeController {
     private TableColumn<Employee, String> qualColumn;
     @FXML
     private Stage tw;
+    @FXML
+    private Image tick;
 
 
     public void init() {
@@ -135,7 +128,7 @@ public class EmployeeController {
             public void handle(ActionEvent event) {
                 try {
                   FXMLLoader loader = new FXMLLoader();
-                  loader.setLocation(getClass().getResource("/sample/view/TW.fxml"));
+                  loader.setLocation(getClass().getResource("/sample/view/MarketingOfferView.fxml"));
                   secondaryLayout = (AnchorPane) loader.load();
                   Scene scene = new Scene(secondaryLayout);
                   Stage stage = new Stage();
@@ -145,6 +138,7 @@ public class EmployeeController {
                     e.printStackTrace();
                 }
             }
+
         });
     }
 
@@ -171,7 +165,7 @@ public class EmployeeController {
             alert.showAndWait();
             return;
         }
-      Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText());
+      Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), countryField.getText(), customerClassField.getText());
       DBUtil dbUtil = new DBUtil();
       dbUtil.updateEmployee(emp);
       employeeID.clear();
@@ -179,6 +173,8 @@ public class EmployeeController {
       surnameField.clear();
       emailField.clear();
       telephoneField.clear();
+      countryField.clear();
+      customerClassField.clear();
       statusLabel.setText("Employee was updated");
       statusLabel.setTextFill(Color.web("#FF4500"));
     }
@@ -234,16 +230,17 @@ public class EmployeeController {
         type.setHeaderText("Choose customer type");
         type.setContentText("Chooses:");
         Optional<String> resultType = type.showAndWait();
-        Employee emp = new Employee(0, nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), result.get(), resultType.get());
+        Employee emp = new Employee(0, nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), result.get(), resultType.get(), countryField.getText(), customerClassField.getText());
         DBUtil dbUtil = new DBUtil();
         dbUtil.createEmployee(emp);
         nameField.clear();
         surnameField.clear();
         emailField.clear();
         telephoneField.clear();
+        countryField.clear();
+        customerClassField.clear();
         statusLabel.setText("Customer was created");
         statusLabel.setTextFill(Color.web("#32CD32"));
-
     }
     private void deleteEmployee() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -269,6 +266,7 @@ public class EmployeeController {
         telephoneField.clear();
         statusLabel.setText("Fields were cleared");
         statusLabel.setTextFill(Color.web("#008080"));
+
     }
 
    public ObservableList<Employee> getCustomerData() {
@@ -293,7 +291,6 @@ public class EmployeeController {
          telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
          qualColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("qualification"));
          customersTableView.setItems(tableData);
-         customersTableView.getColumns().addAll();
      }
 }
 
