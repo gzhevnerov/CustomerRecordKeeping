@@ -2,6 +2,7 @@ package sample.util;
 
 
 import sample.model.Employee;
+import sample.model.Offer;
 
 import java.sql.*;
 import java.util.*;
@@ -12,6 +13,7 @@ public class DBUtil {
     private static final String connStr = "jdbc:mysql://localhost:3306/database_of_employee?useSSL=false";
     private ResultSet resultSet;
     private ArrayList<Employee> employees;
+    private ArrayList<Offer> offers;
 
     public ArrayList<Employee> getEmployeesList() {
         try {
@@ -26,6 +28,20 @@ public class DBUtil {
 
         createUsers();
         return employees;
+    }
+    public ArrayList<Offer> getOffersList() {
+        try {
+            Connection connection = DriverManager.getConnection(connStr, "java", "password");
+            Statement myStat = connection.createStatement();
+            resultSet = myStat.executeQuery("SELECT * FROM database_of_employee.marketing_offer");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        offers = new ArrayList<>();
+
+        createOffers();
+
+        return offers;
     }
 
     public ArrayList<Employee> getEmployeesListByID(int employeeID) {
@@ -42,7 +58,19 @@ public class DBUtil {
         createUsers();
         return employees;
     }
-
+    private void createOffers() {
+        try {
+            while (resultSet.next()) {
+                offers.add(new Offer(resultSet.getInt("customer_id"),
+                        resultSet.getString("service_name"),
+                        resultSet.getString("offer_type"),
+                        resultSet.getString("status"),
+                        resultSet.getString("offer_sum")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     private void createUsers() {
         try {
             while (resultSet.next()) {
@@ -59,6 +87,30 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+    public void createOffer(Offer offer) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "insert into database_of_employee.marketing_offer (service_name, offer_type, status, offer_sum, employee_id) values (?, ?, ?, ?, ?)";
+        try {
+            System.out.println(offer.toString());
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            System.out.println("Customer ID: " + offer.getCustomer_id());
+            System.out.println(offer.getCustomer_id().getClass());
+            preparedStatement.setInt(5,7);
+            preparedStatement.setString(2, offer.getService_name());
+            preparedStatement.setString(3, offer.getOffer_type());
+            preparedStatement.setString(4, offer.getStutus());
+            preparedStatement.setString(1, offer.getOffer_sum());
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateEmployee(Employee emp) {
         Connection connection = null;
@@ -69,6 +121,7 @@ public class DBUtil {
         }
         String statement = "UPDATE database_of_employee.employees SET name = ?, surname = ?, email = ?, telephone = ?, country = ?, customer_class = ? where employee_id = ?";
         try {
+
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, emp.getName());
             preparedStatement.setString(2, emp.getSurname());
@@ -151,6 +204,10 @@ public class DBUtil {
             }
             return employees;
         }
+
+
+
+
     }
 
 

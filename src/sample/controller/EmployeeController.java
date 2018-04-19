@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.model.Employee;
+import sample.model.Offer;
 import sample.util.DBUtil;
 
 import java.awt.*;
@@ -28,6 +29,10 @@ import java.util.Optional;
 
 
 public class EmployeeController {
+    @FXML
+    private Button createOfferButton;
+    @FXML
+    private AnchorPane offerLayout;
     @FXML
     TextField nameField;
     @FXML
@@ -57,7 +62,7 @@ public class EmployeeController {
     @FXML
     Button tableViewButton;
     @FXML
-    Button transactionButton;
+    Button offerViewButton;
     @FXML
     CheckBox checkBox;
     @FXML
@@ -82,7 +87,6 @@ public class EmployeeController {
     private Stage tw;
     @FXML
     private Image tick;
-
 
     public void init() {
 
@@ -123,25 +127,45 @@ public class EmployeeController {
                 fillTableView();
             }
         });
-        transactionButton.setOnAction(new EventHandler<ActionEvent>() {
+        offerViewButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
                   FXMLLoader loader = new FXMLLoader();
+
                   loader.setLocation(getClass().getResource("/sample/view/MarketingOfferView.fxml"));
+
                   secondaryLayout = (AnchorPane) loader.load();
                   Scene scene = new Scene(secondaryLayout);
                   Stage stage = new Stage();
                   stage.setScene(scene);
                   stage.show();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
+        });
+        createOfferButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    MarketingOfferController moc = new MarketingOfferController();
+                    loader.setLocation(getClass().getResource("/sample/view/MarketingOfferCreateView.fxml"));
+                    loader.setController(moc);
+                    offerLayout = (AnchorPane) loader.load();
+                    Scene scene = new Scene(offerLayout);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                    moc.initial();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
-
     private void find() {
         DBUtil dbUtil = new DBUtil();
         ArrayList<Employee> employees;

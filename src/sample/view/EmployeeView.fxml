@@ -72,11 +72,12 @@
       </columns>
     </TableView>
     <CheckBox id="checkbox" fx:id="cb" layoutX="179.0" layoutY="25.0" mnemonicParsing="false" prefHeight="39.0" text="Ordinary/potential" />
-    <Button fx:id="transactionButton" layoutX="103.0" layoutY="309.0" mnemonicParsing="false" text="Open marketing offer" />
-    <TextField id="surnameField" fx:id="countryField" layoutX="106.0" layoutY="221.0" prefWidth="184.0" promptText="Surname" text="" />
-    <TextField id="surnameField" fx:id="customerClassField" layoutX="106.0" layoutY="251.0" prefWidth="184.0" promptText="Surname" text="" />
+    <Button id="transactionButton" fx:id="offerViewButton" layoutX="31.0" layoutY="309.0" mnemonicParsing="false" text="Open marketing offer" />
+    <TextField id="surnameField" fx:id="countryField" layoutX="106.0" layoutY="221.0" prefWidth="184.0" promptText="Country" text="" />
+    <TextField id="surnameField" fx:id="customerClassField" layoutX="106.0" layoutY="251.0" prefWidth="184.0" promptText="Customer class" text="" />
     <Label layoutX="55.0" layoutY="221.0" text="Country" />
     <Label layoutX="18.0" layoutY="254.0" text="Customer class" />
+    <Button id="transactionButton" fx:id="createOfferButton" layoutX="178.0" layoutY="309.0" mnemonicParsing="false" text="Create marketing offer" />
   </children>
   <stylesheets>
     <URL value="@background.css" />

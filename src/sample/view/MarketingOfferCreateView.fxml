@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <TextField id="employeeID" fx:id="customerIdField" layoutX="116.0" layoutY="81.0" prefWidth="79.0" promptText="Customer ID" />
+    <Label layoutX="116.0" layoutY="58.0" text="Customer ID">
+      <font>
+        <Font size="12.0" />
+      </font>
+    </Label>
+    <TextField id="nameField" fx:id="serviceField" layoutX="116.0" layoutY="119.0" prefWidth="184.0" promptText="Service" />
+    <TextField id="nameField" fx:id="offerTypeField" layoutX="116.0" layoutY="148.0" prefWidth="184.0" promptText="Offer Type" />
+    <TextField id="nameField" fx:id="sumField" layoutX="116.0" layoutY="209.0" prefWidth="184.0" promptText="Sum of offer" />
+    <Label layoutX="71.0" layoutY="122.0" text="Service" />
+    <Label layoutX="53.0" layoutY="154.0" text="Offer Type" />
+    <Label layoutX="43.0" layoutY="209.0" text="Sum of offer" />
+    <Button fx:id="commitButton" layoutX="116.0" layoutY="239.0" mnemonicParsing="false" text="Commit" />
+    <TextField id="nameField" fx:id="statusField" layoutX="116.0" layoutY="180.0" prefWidth="184.0" promptText="Status" text="" />
+    <Label layoutX="76.0" layoutY="183.0" text="Status" />
+  </children>
+  <stylesheets>
+    <URL value="@MarketingOfferView.css" />
+  </stylesheets>
+</AnchorPane>

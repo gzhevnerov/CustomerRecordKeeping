@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import sample.controller.EmployeeController;
+import sample.controller.MarketingOfferController;
 
 import java.awt.*;
 import java.beans.EventHandler;
@@ -25,7 +26,7 @@ public class Main extends Application {
         this.primaryStage.setTitle("Customer record-keeping");
         initRootLayout();
         showEmployeeOperationsView();
-    }
+}
 
     public void initRootLayout() {
         try {
@@ -39,7 +40,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
     public void showEmployeeOperationsView() {
         try {
             EmployeeController ec = new EmployeeController();
