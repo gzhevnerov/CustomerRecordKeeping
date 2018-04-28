@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <TextField id="employeeID" fx:id="customerIdField" layoutX="116.0" layoutY="81.0" prefWidth="79.0" promptText="Customer ID" />
-    <Label layoutX="116.0" layoutY="58.0" text="Customer ID">
+    <TextField id="employeeID" fx:id="marketingOfferIdField" layoutX="169.0" layoutY="88.0" prefWidth="79.0" promptText="MOID" />
+    <Label layoutX="166.0" layoutY="52.0" text="Marketing Offer ID">
       <font>
         <Font size="12.0" />
       </font>
@@ -22,9 +22,32 @@
     <Label layoutX="71.0" layoutY="122.0" text="Service" />
     <Label layoutX="53.0" layoutY="154.0" text="Offer Type" />
     <Label layoutX="43.0" layoutY="209.0" text="Sum of offer" />
-    <Button fx:id="commitButton" layoutX="116.0" layoutY="239.0" mnemonicParsing="false" text="Commit" />
+    <Button fx:id="commitButton" layoutX="331.0" layoutY="117.0" mnemonicParsing="false" text="Create offer">
+      <stylesheets>
+        <URL value="@buttons.css" />
+      </stylesheets>
+    </Button>
     <TextField id="nameField" fx:id="statusField" layoutX="116.0" layoutY="180.0" prefWidth="184.0" promptText="Status" text="" />
     <Label layoutX="76.0" layoutY="183.0" text="Status" />
+    <Button fx:id="deleteOfferButton" layoutX="331.0" layoutY="60.0" mnemonicParsing="false" text="Delete offer">
+      <stylesheets>
+        <URL value="@buttons.css" />
+      </stylesheets>
+    </Button>
+    <Label fx:id="statusLabel" layoutX="259.0" layoutY="260.0" opacity="1.0" prefHeight="41.0" prefWidth="207.0" text="" />
+    <Button id="commitButton" fx:id="updateOfferButton" layoutX="331.0" layoutY="170.0" mnemonicParsing="false" text="Update offer">
+      <stylesheets>
+        <URL value="file:/E:/CustomerRecordKeeping/src/sample/view/buttons.css" />
+      </stylesheets>
+    </Button>
+      <ChoiceBox fx:id="offerTypeDropDown" layoutX="181.0" layoutY="248.0" prefWidth="150.0" />
+      <Label layoutX="43.0" layoutY="252.0" text="Marketing offer type" />
+      <TextField id="employeeID" fx:id="employeeIdField" layoutX="32.0" layoutY="295.0" prefHeight="25.0" prefWidth="87.0" promptText="Employee ID" />
+      <Label layoutX="26.0" layoutY="331.0" text="Employee ID">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
   </children>
   <stylesheets>
     <URL value="@MarketingOfferView.css" />

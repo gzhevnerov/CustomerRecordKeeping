@@ -149,30 +149,5 @@ public class Employee {
     public void setQualification(String name) {
         this.name = qualification;
     }
-
-    public int idProperty() {
-        return this.id;
-    }
-
-    public String nameProperty() {
-        return this.name = nameProperty();
-    }
-
-    public String surnameProperty() {
-        return this.surname = surnameProperty();
-    }
-
-    public String emailProperty() {
-        return this.email = emailProperty();
-    }
-
-    public String telephoneProperty() {
-        return this.telephone = telephoneProperty();
-    }
-
-    public String qualProperty() {
-        return this.qualification = qualProperty();
-    }
-
 }
 

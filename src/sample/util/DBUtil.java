@@ -2,6 +2,7 @@ package sample.util;
 
 
 import sample.model.Employee;
+import sample.model.MarketingOfferType;
 import sample.model.Offer;
 
 import java.sql.*;
@@ -52,20 +53,20 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         employees = new ArrayList<>();
-
         createUsers();
         return employees;
     }
     private void createOffers() {
         try {
             while (resultSet.next()) {
-                offers.add(new Offer(resultSet.getInt("customer_id"),
+                offers.add(new Offer(resultSet.getInt("marketing_offer_id"),
                         resultSet.getString("service_name"),
                         resultSet.getString("offer_type"),
                         resultSet.getString("status"),
-                        resultSet.getString("offer_sum")));
+                        resultSet.getString("offer_sum"),
+                        resultSet.getInt("marketing_offer_type_id")
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,11 +78,8 @@ public class DBUtil {
                 employees.add(new Employee(resultSet.getInt("employee_id"),
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
-                        resultSet.getString("country"),
                         resultSet.getString("email"),
-                        resultSet.getString("telephone"),
-                        resultSet.getString("qualification"),
-                        resultSet.getString("customerclass")));
+                        resultSet.getString("telephone")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,17 +92,16 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "insert into database_of_employee.marketing_offer (service_name, offer_type, status, offer_sum, employee_id) values (?, ?, ?, ?, ?)";
+        String statement = "insert into database_of_employee.marketing_offer (marketing_offer_id, service_name, offer_type, status, offer_sum, marketing_offer_type_id, employee_id) values (?, ?, ?, ?, ?, ?, ?)";
         try {
-            System.out.println(offer.toString());
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            System.out.println("Customer ID: " + offer.getCustomer_id());
-            System.out.println(offer.getCustomer_id().getClass());
-            preparedStatement.setInt(5,7);
-            preparedStatement.setString(2, offer.getService_name());
-            preparedStatement.setString(3, offer.getOffer_type());
+            preparedStatement.setInt(1,offer.getMarketingOfferId());
+            preparedStatement.setString(2, offer.getServiceName());
+            preparedStatement.setString(3, offer.getOfferType());
             preparedStatement.setString(4, offer.getStutus());
-            preparedStatement.setString(1, offer.getOffer_sum());
+            preparedStatement.setString(5, offer.getOffer_sum());
+            preparedStatement.setInt(6, offer.getMarketing_offer_type_id());
+            preparedStatement.setInt(7, offer.getEmployee_id());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -204,11 +201,68 @@ public class DBUtil {
             }
             return employees;
         }
-
-
-
-
+    public void deleteOffer (Offer offer) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "delete from database_of_employee.marketing_offer where employee_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, offer.getMarketingOfferId());
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+    public void updateOffer(Offer offer) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "UPDATE database_of_employee.marketing_offer SET service_name = ?, offer_type = ?, status = ?, offer_sum = ? where employee_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, offer.getServiceName());
+            preparedStatement.setString(2, offer.getOfferType());
+            preparedStatement.setString(3, offer.getStutus());
+            preparedStatement.setString(4, offer.getOffer_sum());
+            preparedStatement.setInt(5, offer.getMarketingOfferId());
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public ArrayList<MarketingOfferType> getAllMarketingOfferTypes() {
+        ArrayList<MarketingOfferType> marketingOfferTypes = new ArrayList<MarketingOfferType>();
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "SELECT * FROM database_of_employee.marketing_offer_type";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet set = st.executeQuery(statement);
+            while(set.next()) {
+                marketingOfferTypes.add(new MarketingOfferType(set.getInt("marketing_offer_type_id"),
+                        set.getString("marketing_offer_type_name")));
+            }
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return marketingOfferTypes;
+    }
+}
+
 
 
 

@@ -1,6 +1,8 @@
 package sample.controller;
 
 
+
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.model.Employee;
+import sample.model.MarketingOfferType;
 import sample.model.Offer;
 import sample.util.DBUtil;
 
@@ -29,6 +32,7 @@ import java.util.Optional;
 
 
 public class EmployeeController {
+
     @FXML
     private Button createOfferButton;
     @FXML
@@ -179,6 +183,8 @@ public class EmployeeController {
         surnameField.setText(employees.get(0).getSurname());
         emailField.setText(employees.get(0).getEmail());
         telephoneField.setText(employees.get(0).getTelephone());
+        customerClassField.setText(employees.get(0).getCustomerclass());
+
     }
     private void updateEmployee() {
         if(employeeID.getText().isEmpty()) {
@@ -292,22 +298,16 @@ public class EmployeeController {
         statusLabel.setTextFill(Color.web("#008080"));
 
     }
-
-   public ObservableList<Employee> getCustomerData() {
-    return tableData;
-   }
-
-
      public void fillTableView() {
-        DBUtil dbUtil = new DBUtil();
-        ObservableList<Employee> tableData = FXCollections.observableArrayList(dbUtil.getAllCustomers());
-        System.out.println(tableData.size());
-         TableColumn<Employee, Integer> idColumn = new TableColumn<Employee, Integer>("id");
-         TableColumn<Employee, String> nameColumn = new TableColumn<Employee, String>("name");
-         TableColumn<Employee, String> surnameColumn = new TableColumn<Employee, String>("surname");
-         TableColumn<Employee, String> emailColumn = new TableColumn<Employee, String>("email");
-         TableColumn<Employee, String> telephoneColumn = new TableColumn<Employee, String>("telephone");
-         TableColumn<Employee, String> qualColumn = new TableColumn<Employee, String>("qualification");
+         DBUtil dbUtil = new DBUtil();
+         ObservableList<Employee> tableData = FXCollections.observableArrayList(dbUtil.getAllCustomers());
+         TableColumn idColumn = new TableColumn("id");
+         TableColumn nameColumn = new TableColumn("name");
+         TableColumn surnameColumn = new TableColumn("surname");
+         TableColumn emailColumn = new TableColumn("email");
+         TableColumn telephoneColumn = new TableColumn("telephone");
+         TableColumn qualColumn = new TableColumn("qualification");
+         customersTableView.getColumns().addAll(idColumn,nameColumn,surnameColumn,emailColumn,telephoneColumn,qualColumn);
          idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
          nameColumn.setCellValueFactory(new PropertyValueFactory< Employee, String>("name"));
          surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
