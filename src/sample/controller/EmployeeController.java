@@ -2,6 +2,7 @@ package sample.controller;
 
 
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,39 +35,39 @@ import java.util.Optional;
 public class EmployeeController {
 
     @FXML
-    private Button createOfferButton;
+    private JFXButton createOfferButton;
     @FXML
     private AnchorPane offerLayout;
     @FXML
-    TextField nameField;
+    JFXTextField nameField;
     @FXML
-    Button searchButton;
+    JFXButton searchButton;
     @FXML
-    TextField employeeID;
+    JFXTextField employeeID;
     @FXML
-    TextField surnameField;
+    JFXTextField surnameField;
     @FXML
-    TextField emailField;
+    JFXTextField emailField;
     @FXML
-    TextField countryField;
+    JFXTextField countryField;
     @FXML
     TextField customerClassField;
     @FXML
-    Button updateButton;
+    JFXButton updateButton;
     @FXML
     TextField telephoneField;
     @FXML
-    Button deleteButton;
+    JFXButton deleteButton;
     @FXML
     Label statusLabel;
     @FXML
-    Button addButton;
+    JFXButton addButton;
     @FXML
-    Button clearButton;
+    JFXButton clearButton;
     @FXML
-    Button tableViewButton;
+    JFXButton tableViewButton;
     @FXML
-    Button offerViewButton;
+    JFXButton offerViewButton;
     @FXML
     CheckBox checkBox;
     @FXML
@@ -183,8 +184,7 @@ public class EmployeeController {
         surnameField.setText(employees.get(0).getSurname());
         emailField.setText(employees.get(0).getEmail());
         telephoneField.setText(employees.get(0).getTelephone());
-        customerClassField.setText(employees.get(0).getCustomerclass());
-
+        countryField.setText(employees.get(0).getCountry());
     }
     private void updateEmployee() {
         if(employeeID.getText().isEmpty()) {
@@ -195,7 +195,7 @@ public class EmployeeController {
             alert.showAndWait();
             return;
         }
-      Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), countryField.getText(), customerClassField.getText());
+      Employee emp = new Employee(Integer.parseInt(employeeID.getText()), nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), countryField.getText());
       DBUtil dbUtil = new DBUtil();
       dbUtil.updateEmployee(emp);
       employeeID.clear();
@@ -204,7 +204,6 @@ public class EmployeeController {
       emailField.clear();
       telephoneField.clear();
       countryField.clear();
-      customerClassField.clear();
       statusLabel.setText("Employee was updated");
       statusLabel.setTextFill(Color.web("#FF4500"));
     }
@@ -294,6 +293,7 @@ public class EmployeeController {
         surnameField.clear();
         emailField.clear();
         telephoneField.clear();
+        countryField.clear();
         statusLabel.setText("Fields were cleared");
         statusLabel.setTextFill(Color.web("#008080"));
 

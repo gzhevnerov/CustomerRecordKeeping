@@ -79,7 +79,8 @@ public class DBUtil {
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getString("email"),
-                        resultSet.getString("telephone")));
+                        resultSet.getString("telephone"),
+                        resultSet.getString("country")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

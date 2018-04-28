@@ -14,6 +14,7 @@ public class Employee {
     private String country;
     private String customerclass;
 
+
     public void setCustomertype(String customertype) {
         this.customertype = customertype;
     }
@@ -32,21 +33,21 @@ public class Employee {
         this.customertype = customertype;
     }
 
+    public Employee(int id, String name, String surname, String email, String telephone, String country) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
+        this.country = country;
+    }
+
     public Employee(int id, String name, String surname, String email, String telephone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.telephone = telephone;
-    }
-
-    public Employee(int id, String name, String surname, String email, String telephone, String qualification) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.telephone = telephone;
-        this.qualification = qualification;
     }
 
     public Employee(String name, String surname, String email, String telephone) {
