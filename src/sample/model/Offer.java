@@ -4,40 +4,40 @@ public class Offer {
     private int marketingOfferId;
     private String serviceName;
     private String offerType;
-    private String stutus;
-    private String offer_sum;
-    private int marketing_offer_type_id;
-    private int employee_id;
+    private String status;
+    private String offerSum;
+    private int marketingOfferTypeId;
+    private int employeeId;
 
-    public Offer(String serviceName, String offerType, String stutus, String offer_sum, int marketing_offer_type_id, int employee_id) {
+    public Offer(String serviceName, String offerType, String status, String offerSum, int marketingOfferTypeId, int employeeId) {
         this.serviceName = serviceName;
         this.offerType = offerType;
-        this.stutus = stutus;
-        this.offer_sum = offer_sum;
-        this.marketing_offer_type_id = marketing_offer_type_id;
-        this.employee_id = employee_id;
+        this.status = status;
+        this.offerSum = offerSum;
+        this.marketingOfferTypeId = marketingOfferTypeId;
+        this.employeeId = employeeId;
     }
 
-    public void setMarketing_offer_type_id(int marketing_offer_type_id) {
-        this.marketing_offer_type_id = marketing_offer_type_id;
+    public void setMarketingOfferTypeId(int marketingOfferTypeId) {
+        this.marketingOfferTypeId = marketingOfferTypeId;
     }
 
-    public int getEmployee_id() {
-        return employee_id;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public Offer(int marketingOfferId, String serviceName, String offerType, String stutus, String offer_sum, int marketing_offer_type_id, int employee_id) {
+    public Offer(int marketingOfferId, String serviceName, String offerType, String status, String offerSum, int marketingOfferTypeId, int employeeId) {
         this.marketingOfferId = marketingOfferId;
         this.serviceName = serviceName;
         this.offerType = offerType;
-        this.stutus = stutus;
-        this.offer_sum = offer_sum;
-        this.marketing_offer_type_id = marketing_offer_type_id;
-        this.employee_id = employee_id;
+        this.status = status;
+        this.offerSum = offerSum;
+        this.marketingOfferTypeId = marketingOfferTypeId;
+        this.employeeId = employeeId;
     }
 
     public void setMarketingOfferId(int marketingOfferId) {
@@ -45,11 +45,11 @@ public class Offer {
     }
 
     public void setMarketing_offer_type_id(Integer marketing_offer_type_id) {
-        this.marketing_offer_type_id = marketing_offer_type_id;
+        this.marketingOfferTypeId = marketing_offer_type_id;
     }
 
-    public Integer getMarketing_offer_type_id() {
-        return marketing_offer_type_id;
+    public Integer getMarketingOfferTypeId() {
+        return marketingOfferTypeId;
     }
 
     public void setMarketing_offer_id(Integer customer_id) {
@@ -64,12 +64,12 @@ public class Offer {
         this.offerType = offerType;
     }
 
-    public void setStutus(String stutus) {
-        this.stutus = stutus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setOffer_sum(String offer_sum) {
-        this.offer_sum = offer_sum;
+    public void setOfferSum(String offerSum) {
+        this.offerSum = offerSum;
     }
 
     public Integer getMarketingOfferId() {
@@ -84,21 +84,21 @@ public class Offer {
         return offerType;
     }
 
-    public String getStutus() {
-        return stutus;
+    public String getStatus() {
+        return status;
     }
 
-    public String getOffer_sum() {
-        return offer_sum;
+    public String getOfferSum() {
+        return offerSum;
     }
 
-    public Offer(Integer marketingOfferId, String serviceName, String offerType, String stutus, String offer_sum, Integer marketing_offer_type_id) {
+    public Offer(Integer marketingOfferId, String serviceName, String offerType, String status, String offerSum, Integer marketingOfferTypeId) {
         this.marketingOfferId = marketingOfferId;
         this.serviceName = serviceName;
         this.offerType = offerType;
-        this.stutus = stutus;
-        this.offer_sum = offer_sum;
-        this.marketing_offer_type_id = marketing_offer_type_id;
+        this.status = status;
+        this.offerSum = offerSum;
+        this.marketingOfferTypeId = marketingOfferTypeId;
     }
 
     @Override
@@ -107,16 +107,16 @@ public class Offer {
                 "marketingOfferId=" + marketingOfferId +
                 ", serviceName='" + serviceName + '\'' +
                 ", offerType='" + offerType + '\'' +
-                ", stutus='" + stutus + '\'' +
-                ", offer_sum='" + offer_sum + '\'' +
+                ", status='" + status + '\'' +
+                ", offerSum='" + offerSum + '\'' +
                 '}';
     }
 
-    public Offer(String serviceName, String offerType, String stutus, String offer_sum) {
+    public Offer(String serviceName, String offerType, String status, String offerSum) {
         this.serviceName = serviceName;
         this.offerType = offerType;
-        this.stutus = stutus;
-        this.offer_sum = offer_sum;
+        this.status = status;
+        this.offerSum = offerSum;
     }
     public Offer(Integer marketingOfferId) {
         this.marketingOfferId = marketingOfferId;

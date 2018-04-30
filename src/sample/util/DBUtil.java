@@ -30,6 +30,7 @@ public class DBUtil {
         createUsers();
         return employees;
     }
+
     public ArrayList<Offer> getOffersList() {
         try {
             Connection connection = DriverManager.getConnection(connStr, "java", "password");
@@ -57,6 +58,7 @@ public class DBUtil {
         createUsers();
         return employees;
     }
+
     private void createOffers() {
         try {
             while (resultSet.next()) {
@@ -72,6 +74,7 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+
     private void createUsers() {
         try {
             while (resultSet.next()) {
@@ -86,6 +89,7 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+
     public void createOffer(Offer offer) {
         Connection connection = null;
         try {
@@ -96,13 +100,13 @@ public class DBUtil {
         String statement = "insert into database_of_employee.marketing_offer (marketing_offer_id, service_name, offer_type, status, offer_sum, marketing_offer_type_id, employee_id) values (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setInt(1,offer.getMarketingOfferId());
+            preparedStatement.setInt(1, offer.getMarketingOfferId());
             preparedStatement.setString(2, offer.getServiceName());
             preparedStatement.setString(3, offer.getOfferType());
-            preparedStatement.setString(4, offer.getStutus());
-            preparedStatement.setString(5, offer.getOffer_sum());
-            preparedStatement.setInt(6, offer.getMarketing_offer_type_id());
-            preparedStatement.setInt(7, offer.getEmployee_id());
+            preparedStatement.setString(4, offer.getStatus());
+            preparedStatement.setString(5, offer.getOfferSum());
+            preparedStatement.setInt(6, offer.getMarketingOfferTypeId());
+            preparedStatement.setInt(7, offer.getEmployeeId());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -159,6 +163,7 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+
     public void deleteEmployee(Employee emp) {
         Connection connection = null;
         try {
@@ -176,40 +181,42 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
-        public ArrayList<Employee> getAllCustomers() {
-          ArrayList<Employee> employees = new ArrayList<Employee>();
-            Connection connection = null;
-            try {
-                connection = DriverManager.getConnection(connStr, "java", "password");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            String statement = "SELECT * FROM database_of_employee.employees";
-            try {
-                Statement st = connection.createStatement();
-                ResultSet set = st.executeQuery(statement);
-                while(set.next()) {
-                    employees.add(new Employee(set.getInt("employee_id"),
-                            set.getString("name"),
-                            set.getString("surname"),
-                            set.getString("email"),
-                            set.getString("telephone"),
-                            set.getString("qualification")));
-                }
-                st.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return employees;
-        }
-    public void deleteOffer (Offer offer) {
+
+    public ArrayList<Employee> getAllCustomers() {
+        ArrayList<Employee> employees = new ArrayList<Employee>();
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(connStr, "java", "password");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "delete from database_of_employee.marketing_offer where employee_id = ?";
+        String statement = "SELECT * FROM database_of_employee.employees";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet set = st.executeQuery(statement);
+            while (set.next()) {
+                employees.add(new Employee(set.getInt("employee_id"),
+                        set.getString("name"),
+                        set.getString("surname"),
+                        set.getString("email"),
+                        set.getString("telephone"),
+                        set.getString("qualification")));
+            }
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
+    public void deleteOffer(Offer offer) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "delete from database_of_employee.marketing_offer where marketing_offer_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setInt(1, offer.getMarketingOfferId());
@@ -219,6 +226,7 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+
     public void updateOffer(Offer offer) {
         Connection connection = null;
         try {
@@ -231,8 +239,8 @@ public class DBUtil {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, offer.getServiceName());
             preparedStatement.setString(2, offer.getOfferType());
-            preparedStatement.setString(3, offer.getStutus());
-            preparedStatement.setString(4, offer.getOffer_sum());
+            preparedStatement.setString(3, offer.getStatus());
+            preparedStatement.setString(4, offer.getOfferSum());
             preparedStatement.setInt(5, offer.getMarketingOfferId());
             preparedStatement.executeUpdate();
             connection.close();
@@ -240,6 +248,7 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+
     public ArrayList<MarketingOfferType> getAllMarketingOfferTypes() {
         ArrayList<MarketingOfferType> marketingOfferTypes = new ArrayList<MarketingOfferType>();
         Connection connection = null;
@@ -252,7 +261,7 @@ public class DBUtil {
         try {
             Statement st = connection.createStatement();
             ResultSet set = st.executeQuery(statement);
-            while(set.next()) {
+            while (set.next()) {
                 marketingOfferTypes.add(new MarketingOfferType(set.getInt("marketing_offer_type_id"),
                         set.getString("marketing_offer_type_name")));
             }
@@ -262,8 +271,31 @@ public class DBUtil {
         }
         return marketingOfferTypes;
     }
+
+    public ArrayList<Offer> getMarketingOffer() {
+        ArrayList<Offer> offer = new ArrayList<Offer>();
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "SELECT * FROM database_of_employee.marketing_offer";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet set = st.executeQuery(statement);
+            while (set.next()) {
+                offer.add(new Offer(set.getInt("marketing_offer_id"),
+                        set.getString("service_name"),
+                        set.getString("offer_type"),
+                        set.getString("status"),
+                        set.getString("offer_sum"),
+                        set.getInt("employee_id")));
+            }
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return offer;
+    }
 }
-
-
-
-
