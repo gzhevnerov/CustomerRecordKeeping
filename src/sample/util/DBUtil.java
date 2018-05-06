@@ -295,4 +295,30 @@ public class DBUtil {
         }
         return offer;
     }
+    public ArrayList<Offer> getActiveMarketingOffer() {
+        ArrayList<Offer> offer = new ArrayList<Offer>();
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connStr, "java", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String statement = "SELECT * FROM database_of_employee.marketing_offer where status = 'Active'";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet set = st.executeQuery(statement);
+            while (set.next()) {
+                offer.add(new Offer(set.getInt("marketing_offer_id"),
+                        set.getString("service_name"),
+                        set.getString("offer_type"),
+                        set.getString("status"),
+                        set.getString("offer_sum"),
+                        set.getInt("employee_id")));
+            }
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return offer;
+    }
 }

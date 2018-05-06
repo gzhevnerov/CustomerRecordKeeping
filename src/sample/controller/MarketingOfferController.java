@@ -56,6 +56,8 @@ public class MarketingOfferController {
     TableView offerTableView;
     @FXML
     private ObservableList<Offer> tableData;
+    @FXML
+    Button activeOfferButton;
 
 
 
@@ -80,11 +82,16 @@ public class MarketingOfferController {
                 updateOffer();
             }
         });
+        activeOfferButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                fillActiveTableView();
+            }
+        });
         tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 fillTableView();
-
             }
         });
         ArrayList<MarketingOfferType> marketingOfferTypes = new DBUtil().getAllMarketingOfferTypes();
@@ -148,4 +155,23 @@ public class MarketingOfferController {
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<Offer, Integer>("employeeId"));
         offerTableView.setItems(tableData);
     }
+    public void fillActiveTableView() {
+        DBUtil dbUtil = new DBUtil();
+        ObservableList<Offer> tableData = FXCollections.observableArrayList(dbUtil.getActiveMarketingOffer());
+        TableColumn offerIdColumn = new TableColumn("Offer ID");
+        TableColumn serviceNameColumn = new TableColumn("Service Name");
+        TableColumn offerTypeColumn = new TableColumn("Offer Type");
+        TableColumn statusColumn = new TableColumn("Status");
+        TableColumn offerSumIdColumn = new TableColumn("Offer Sum");
+        TableColumn employeeIdColumn = new TableColumn("Employee ID");
+        offerTableView.getColumns().addAll(offerIdColumn,serviceNameColumn,offerTypeColumn,statusColumn,offerSumIdColumn,employeeIdColumn);
+        offerIdColumn.setCellValueFactory(new PropertyValueFactory<Offer, Integer>("marketingOfferId"));
+        serviceNameColumn.setCellValueFactory(new PropertyValueFactory<Offer, String>("serviceName"));
+        offerTypeColumn.setCellValueFactory(new PropertyValueFactory<Offer, String>("offerType"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<Offer, String>("status"));
+        offerSumIdColumn.setCellValueFactory(new PropertyValueFactory<Offer, String>("offerSum"));
+        employeeIdColumn.setCellValueFactory(new PropertyValueFactory<Offer, Integer>("employeeId"));
+        offerTableView.setItems(tableData);
+    }
+
 }

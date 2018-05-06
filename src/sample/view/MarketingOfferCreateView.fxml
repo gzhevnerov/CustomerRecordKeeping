@@ -55,6 +55,11 @@
             <URL value="file:/E:/CustomerRecordKeeping/src/sample/view/buttons.css" />
          </stylesheets>
       </Button>
+      <Button id="commitButton" fx:id="activeOfferButton" layoutX="5.0" layoutY="361.0" mnemonicParsing="false" text="Active offers">
+         <stylesheets>
+            <URL value="file:/E:/CustomerRecordKeeping/src/sample/view/buttons.css" />
+         </stylesheets>
+      </Button>
   </children>
   <stylesheets>
     <URL value="@MarketingOfferView.css" />
