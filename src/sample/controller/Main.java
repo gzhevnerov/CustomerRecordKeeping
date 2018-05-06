@@ -13,7 +13,7 @@ public class Main {
         ArrayList<Employee> employees = dbUtil.getAllCustomers();
         for(Employee emp : employees) {
             System.out.println(emp.getName());
-            System.out.println(emp.getSurname());
+            System.out.println(emp.getTelephone());
 
         }
     }

@@ -84,6 +84,7 @@ public class MarketingOfferController {
             @Override
             public void handle(MouseEvent event) {
                 fillTableView();
+
             }
         });
         ArrayList<MarketingOfferType> marketingOfferTypes = new DBUtil().getAllMarketingOfferTypes();

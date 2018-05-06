@@ -121,7 +121,7 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "UPDATE database_of_employee.employees SET name = ?, surname = ?, email = ?, telephone = ?, country = ?, customer_class = ? where employee_id = ?";
+        String statement = "UPDATE database_of_employee.employees SET name = ?, surname = ?, email = ?, telephone = ?, country = ? where employee_id = ?";
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -130,8 +130,7 @@ public class DBUtil {
             preparedStatement.setString(3, emp.getEmail());
             preparedStatement.setString(4, emp.getTelephone());
             preparedStatement.setString(5, emp.getCountry());
-            preparedStatement.setString(6, emp.getCustomerclass());
-            preparedStatement.setInt(7, emp.getId());
+            preparedStatement.setInt(6, emp.getId());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -146,17 +145,15 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "insert into database_of_employee.employees (name, surname, email, telephone, qualification, customer_type, country, customer_class) values (?, ?, ?, ?, ?, ?, ?, ?)";
+        String statement = "insert into database_of_employee.employees (name, surname, email, telephone, customer_type, country) values (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, emp.getName());
             preparedStatement.setString(2, emp.getSurname());
             preparedStatement.setString(3, emp.getEmail());
             preparedStatement.setString(4, emp.getTelephone());
-            preparedStatement.setString(5, emp.getQualification());
-            preparedStatement.setString(6, emp.getCustomertype());
-            preparedStatement.setString(7, emp.getCountry());
-            preparedStatement.setString(8, emp.getCustomerclass());
+            preparedStatement.setString(5, emp.getCustomertype());
+            preparedStatement.setString(6, emp.getCountry());
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -200,7 +197,7 @@ public class DBUtil {
                         set.getString("surname"),
                         set.getString("email"),
                         set.getString("telephone"),
-                        set.getString("qualification")));
+                        set.getString("country")));
             }
             st.close();
         } catch (SQLException e) {

@@ -51,8 +51,6 @@ public class EmployeeController {
     @FXML
     JFXTextField countryField;
     @FXML
-    TextField customerClassField;
-    @FXML
     JFXButton updateButton;
     @FXML
     TextField telephoneField;
@@ -87,14 +85,11 @@ public class EmployeeController {
     @FXML
     private TableColumn<Employee, String> telephoneColumn;
     @FXML
-    private TableColumn<Employee, String> qualColumn;
+    private TableColumn<Employee, String> countryColumn;
     @FXML
     private Stage tw;
-    @FXML
-    private Image tick;
 
     public void init() {
-
         searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -108,49 +103,52 @@ public class EmployeeController {
                 updateEmployee();
             }
         });
+
         addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 createEmployee();
             }
         });
+
         deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 deleteEmployee();
             }
         });
+
         clearButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 clearFields();
             }
         });
+
         tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 fillTableView();
             }
         });
+
         offerViewButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
                   FXMLLoader loader = new FXMLLoader();
-
                   loader.setLocation(getClass().getResource("/sample/view/MarketingOfferView.fxml"));
-
                   secondaryLayout = (AnchorPane) loader.load();
                   Scene scene = new Scene(secondaryLayout);
                   Stage stage = new Stage();
                   stage.setScene(scene);
                   stage.show();
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
+
         createOfferButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -242,24 +240,15 @@ public class EmployeeController {
             alert.showAndWait();
             return;
         }
-
-        choices.add("hot");
-        choices.add("warm");
-        choices.add("cold");
         customertype.add("ordinary");
         customertype.add("potential");
 
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("warm", choices);
-        dialog.setTitle("Customer qualification");
-        dialog.setHeaderText("Choose customer qualification");
-        dialog.setContentText("Chooses:");
-        Optional<String> result = dialog.showAndWait();
         ChoiceDialog<String> type = new ChoiceDialog<>("ordinary", customertype);
         type.setTitle("Customer type");
         type.setHeaderText("Choose customer type");
         type.setContentText("Chooses:");
         Optional<String> resultType = type.showAndWait();
-        Employee emp = new Employee(0, nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), result.get(), resultType.get(), countryField.getText(), customerClassField.getText());
+        Employee emp = new Employee(nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), countryField.getText(), resultType.get());
         DBUtil dbUtil = new DBUtil();
         dbUtil.createEmployee(emp);
         nameField.clear();
@@ -267,7 +256,6 @@ public class EmployeeController {
         emailField.clear();
         telephoneField.clear();
         countryField.clear();
-        customerClassField.clear();
         statusLabel.setText("Customer was created");
         statusLabel.setTextFill(Color.web("#32CD32"));
     }
@@ -306,14 +294,14 @@ public class EmployeeController {
          TableColumn surnameColumn = new TableColumn("surname");
          TableColumn emailColumn = new TableColumn("email");
          TableColumn telephoneColumn = new TableColumn("telephone");
-         TableColumn qualColumn = new TableColumn("qualification");
-         customersTableView.getColumns().addAll(idColumn,nameColumn,surnameColumn,emailColumn,telephoneColumn,qualColumn);
+         TableColumn countryColumn = new TableColumn("country");
+         customersTableView.getColumns().addAll(idColumn,nameColumn,surnameColumn,emailColumn,telephoneColumn, countryColumn);
          idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
          nameColumn.setCellValueFactory(new PropertyValueFactory< Employee, String>("name"));
          surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
          emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
          telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
-         qualColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("qualification"));
+         countryColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("country"));
          customersTableView.setItems(tableData);
      }
 }

@@ -4,16 +4,25 @@ package sample.model;
 import javafx.beans.property.*;
 
 public class Employee {
+
+
     private int id;
     private String name;
     private String surname;
     private String email;
     private String telephone;
-    private String qualification;
     private String customertype;
     private String country;
-    private String customerclass;
 
+
+    public Employee(String name, String surname, String email, String telephone, String customertype, String country) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
+        this.customertype = customertype;
+        this.country = country;
+    }
 
     public void setCustomertype(String customertype) {
         this.customertype = customertype;
@@ -21,25 +30,6 @@ public class Employee {
 
     public String getCustomertype() {
         return customertype;
-    }
-
-    public Employee(int id, String name, String surname, String email, String telephone, String qualification, String customertype) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.telephone = telephone;
-        this.qualification = qualification;
-        this.customertype = customertype;
-    }
-
-    public Employee(int id, String name, String surname, String email, String telephone, String country) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.telephone = telephone;
-        this.country = country;
     }
 
     public Employee(int id, String name, String surname, String email, String telephone) {
@@ -61,46 +51,22 @@ public class Employee {
         return country;
     }
 
-    public String getCustomerclass() {
-        return customerclass;
-    }
 
     public void setCountry(String country) {
         this.country = country;
     }
 
-    public void setCustomerclass(String customerclass) {
-        this.customerclass = customerclass;
-    }
-
-    public Employee(int id, String name, String surname, String email, String telephone, String qualification, String customertype, String country, String customerclass) {
+    public Employee(int id, String name, String surname, String email, String telephone, String country) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.telephone = telephone;
-        this.qualification = qualification;
-        this.customertype = customertype;
         this.country = country;
-        this.customerclass = customerclass;
-    }
-    public Employee(int id, String name, String surname, String country, String email, String telephone, String qualification, String customerclass) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.telephone = telephone;
-        this.qualification = qualification;
-        this.country = country;
-        this.customerclass = customerclass;
     }
 
     public Employee(int id) {
         this.id = id;
-    }
-
-    public Employee(String qualification) {
-        this.qualification = qualification;
     }
 
     public int getId() {
@@ -143,12 +109,5 @@ public class Employee {
         this.telephone = telephone;
     }
 
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String name) {
-        this.name = qualification;
-    }
 }
 

@@ -1,6 +1,9 @@
 package sample.model;
 
 public class Offer {
+
+
+
     private int marketingOfferId;
     private String serviceName;
     private String offerType;
@@ -8,6 +11,15 @@ public class Offer {
     private String offerSum;
     private int marketingOfferTypeId;
     private int employeeId;
+
+    public Offer(int marketingOfferId, String serviceName, String offerType, String status, String offerSum, int employeeId) {
+        this.marketingOfferId = marketingOfferId;
+        this.serviceName = serviceName;
+        this.offerType = offerType;
+        this.status = status;
+        this.offerSum = offerSum;
+        this.employeeId = employeeId;
+    }
 
     public Offer(String serviceName, String offerType, String status, String offerSum, int marketingOfferTypeId, int employeeId) {
         this.serviceName = serviceName;
