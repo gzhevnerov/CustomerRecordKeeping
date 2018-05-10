@@ -10,17 +10,19 @@ import java.util.*;
 
 public class DBUtil {
     private static final String JDBC_DRIVER = "";
-    private static Connection conn = null;
-    private static final String connStr = "jdbc:mysql://localhost:3306/database_of_employee?useSSL=false";
+    private static Connection CONN = null;
+    private static final String CONN_STR = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7237286?useSSL=false";
+    private static final String USER = "sql7237286";
+    private static final String PASSWORD = "HzZwQixz9B";
     private ResultSet resultSet;
     private ArrayList<Employee> employees;
     private ArrayList<Offer> offers;
 
     public ArrayList<Employee> getEmployeesList() {
         try {
-            Connection connection = DriverManager.getConnection(connStr, "java", "password");
+            Connection connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
             Statement myStat = connection.createStatement();
-            resultSet = myStat.executeQuery("SELECT * FROM database_of_employee.employees");
+            resultSet = myStat.executeQuery("SELECT * FROM sql7237286.employees");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -33,9 +35,9 @@ public class DBUtil {
 
     public ArrayList<Offer> getOffersList() {
         try {
-            Connection connection = DriverManager.getConnection(connStr, "java", "password");
+            Connection connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
             Statement myStat = connection.createStatement();
-            resultSet = myStat.executeQuery("SELECT * FROM database_of_employee.marketing_offer");
+            resultSet = myStat.executeQuery("SELECT * FROM sql7237286.marketing_offer");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,9 +50,9 @@ public class DBUtil {
 
     public ArrayList<Employee> getEmployeesListByID(int employeeID) {
         try {
-            Connection connection = DriverManager.getConnection(connStr, "java", "password");
+            Connection connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
             Statement myStat = connection.createStatement();
-            resultSet = myStat.executeQuery("SELECT * FROM database_of_employee.employees WHERE employee_id = " + employeeID);
+            resultSet = myStat.executeQuery("SELECT * FROM sql7237286.employees WHERE employee_id = " + employeeID);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -93,11 +95,11 @@ public class DBUtil {
     public void createOffer(Offer offer) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "insert into database_of_employee.marketing_offer (marketing_offer_id, service_name, offer_type, status, offer_sum, marketing_offer_type_id, employee_id) values (?, ?, ?, ?, ?, ?, ?)";
+        String statement = "insert into sql7237286.marketing_offer (marketing_offer_id, service_name, offer_type, status, offer_sum, marketing_offer_type_id, employee_id) values (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setInt(1, offer.getMarketingOfferId());
@@ -117,11 +119,11 @@ public class DBUtil {
     public void updateEmployee(Employee emp) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "UPDATE database_of_employee.employees SET name = ?, surname = ?, email = ?, telephone = ?, country = ? where employee_id = ?";
+        String statement = "UPDATE sql7237286.employees SET name = ?, surname = ?, email = ?, telephone = ?, country = ? where employee_id = ?";
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -141,11 +143,11 @@ public class DBUtil {
     public void createEmployee(Employee emp) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "insert into database_of_employee.employees (name, surname, email, telephone, customer_type, country) values (?, ?, ?, ?, ?, ?)";
+        String statement = "insert into sql7237286.employees (name, surname, email, telephone, customer_type, country) values (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, emp.getName());
@@ -164,11 +166,11 @@ public class DBUtil {
     public void deleteEmployee(Employee emp) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "delete from database_of_employee.employees where employee_id = ?";
+        String statement = "delete from sql7237286.employees where employee_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setInt(1, emp.getId());
@@ -183,11 +185,11 @@ public class DBUtil {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "SELECT * FROM database_of_employee.employees";
+        String statement = "SELECT * FROM sql7237286.employees";
         try {
             Statement st = connection.createStatement();
             ResultSet set = st.executeQuery(statement);
@@ -209,11 +211,11 @@ public class DBUtil {
     public void deleteOffer(Offer offer) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "delete from database_of_employee.marketing_offer where marketing_offer_id = ?";
+        String statement = "delete from sql7237286.marketing_offer where marketing_offer_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setInt(1, offer.getMarketingOfferId());
@@ -227,11 +229,11 @@ public class DBUtil {
     public void updateOffer(Offer offer) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "UPDATE database_of_employee.marketing_offer SET service_name = ?, offer_type = ?, status = ?, offer_sum = ? where employee_id = ?";
+        String statement = "UPDATE sql7237286.marketing_offer SET service_name = ?, offer_type = ?, status = ?, offer_sum = ? where employee_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, offer.getServiceName());
@@ -250,11 +252,11 @@ public class DBUtil {
         ArrayList<MarketingOfferType> marketingOfferTypes = new ArrayList<MarketingOfferType>();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "SELECT * FROM database_of_employee.marketing_offer_type";
+        String statement = "SELECT * FROM sql7237286.marketing_offer_type";
         try {
             Statement st = connection.createStatement();
             ResultSet set = st.executeQuery(statement);
@@ -273,11 +275,11 @@ public class DBUtil {
         ArrayList<Offer> offer = new ArrayList<Offer>();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "SELECT * FROM database_of_employee.marketing_offer";
+        String statement = "SELECT * FROM sql7237286.marketing_offer";
         try {
             Statement st = connection.createStatement();
             ResultSet set = st.executeQuery(statement);
@@ -299,11 +301,11 @@ public class DBUtil {
         ArrayList<Offer> offer = new ArrayList<Offer>();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(connStr, "java", "password");
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String statement = "SELECT * FROM database_of_employee.marketing_offer where status = 'Active'";
+        String statement = "SELECT * FROM sql7237286.marketing_offer where status = 'Active'";
         try {
             Statement st = connection.createStatement();
             ResultSet set = st.executeQuery(statement);
