@@ -1,61 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="505.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <TextField id="employeeID" fx:id="marketingOfferIdField" layoutX="169.0" layoutY="88.0" prefWidth="79.0" promptText="MOID" />
-    <Label layoutX="166.0" layoutY="52.0" text="Marketing Offer ID">
+    <JFXTextField id="employeeID" fx:id="marketingOfferIdField" layoutX="220.0" layoutY="88.0" prefWidth="79.0" promptText="MOID" />
+    <Label layoutX="220.0" layoutY="73.0" text="Marketing Offer ID">
       <font>
-        <Font size="12.0" />
+        <Font name="System Bold" size="12.0" />
       </font>
     </Label>
-    <TextField id="nameField" fx:id="serviceField" layoutX="116.0" layoutY="119.0" prefWidth="184.0" promptText="Service" />
-    <TextField id="nameField" fx:id="offerTypeField" layoutX="116.0" layoutY="148.0" prefWidth="184.0" promptText="Offer Type" />
-    <TextField id="nameField" fx:id="sumField" layoutX="116.0" layoutY="209.0" prefWidth="184.0" promptText="Sum of offer" />
-    <Label layoutX="71.0" layoutY="122.0" text="Service" />
-    <Label layoutX="53.0" layoutY="154.0" text="Offer Type" />
-    <Label layoutX="43.0" layoutY="209.0" text="Sum of offer" />
-    <Button fx:id="commitButton" layoutX="331.0" layoutY="117.0" mnemonicParsing="false" text="Create offer">
+    <JFXTextField id="nameField" fx:id="serviceField" layoutX="116.0" layoutY="118.0" prefWidth="184.0" promptText="Service" />
+    <JFXTextField id="nameField" fx:id="offerTypeField" layoutX="116.0" layoutY="148.0" prefWidth="184.0" promptText="Offer Type" />
+    <JFXTextField id="nameField" fx:id="sumField" layoutX="116.0" layoutY="209.0" prefWidth="184.0" promptText="Sum of offer" />
+    <Label layoutX="71.0" layoutY="122.0" text="Service">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+    <Label layoutX="53.0" layoutY="153.0" text="Offer Type">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+    <Label layoutX="39.0" layoutY="213.0" text="Sum of offer">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+    <Button fx:id="commitButton" layoutX="331.0" layoutY="122.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Create offer" textFill="WHITE">
       <stylesheets>
         <URL value="@buttons.css" />
       </stylesheets>
     </Button>
-    <TextField id="nameField" fx:id="statusField" layoutX="116.0" layoutY="180.0" prefWidth="184.0" promptText="Status" text="" />
-    <Label layoutX="76.0" layoutY="183.0" text="Status" />
-    <Button fx:id="deleteOfferButton" layoutX="331.0" layoutY="60.0" mnemonicParsing="false" text="Delete offer">
+    <JFXTextField id="nameField" fx:id="statusField" layoutX="116.0" layoutY="180.0" prefWidth="184.0" promptText="Status" text="" />
+    <Label layoutX="75.0" layoutY="183.0" text="Status">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+    <Button fx:id="deleteOfferButton" layoutX="331.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Delete offer" textFill="WHITE">
       <stylesheets>
         <URL value="@buttons.css" />
       </stylesheets>
     </Button>
-    <Label fx:id="statusLabel" layoutX="259.0" layoutY="260.0" opacity="1.0" prefHeight="41.0" prefWidth="207.0" text="" />
-    <Button id="commitButton" fx:id="updateOfferButton" layoutX="331.0" layoutY="170.0" mnemonicParsing="false" text="Update offer">
+    <Label fx:id="statusLabel" layoutX="259.0" layoutY="277.0" opacity="1.0" prefHeight="41.0" prefWidth="207.0" text="" />
+    <Button id="commitButton" fx:id="updateOfferButton" layoutX="331.0" layoutY="170.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Update offer" textFill="WHITE">
       <stylesheets>
         <URL value="file:/E:/CustomerRecordKeeping/src/sample/view/buttons.css" />
       </stylesheets>
     </Button>
       <ChoiceBox fx:id="offerTypeDropDown" layoutX="165.0" layoutY="248.0" prefWidth="150.0" />
-      <Label layoutX="43.0" layoutY="252.0" text="Marketing offer type" />
-      <TextField id="employeeID" fx:id="employeeIdField" layoutX="32.0" layoutY="295.0" prefHeight="25.0" prefWidth="87.0" promptText="Employee ID" />
-      <Label layoutX="26.0" layoutY="331.0" text="Employee ID">
+      <Label layoutX="43.0" layoutY="252.0" text="Marketing offer type">
          <font>
-            <Font size="12.0" />
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <JFXTextField id="employeeID" fx:id="employeeIdField" layoutX="116.0" layoutY="88.0" prefHeight="25.0" prefWidth="87.0" promptText="Employee ID" />
+      <Label layoutX="118.0" layoutY="73.0" text="Employee ID">
+         <font>
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TableView fx:id="offerTableView" layoutX="135.0" layoutY="281.0" prefHeight="200.0" prefWidth="455.0" />
-      <Button id="commitButton" fx:id="tableViewButton" layoutX="331.0" layoutY="228.0" mnemonicParsing="false" text="Fill table">
+      <TableView fx:id="offerTableView" layoutX="135.0" layoutY="309.0" prefHeight="200.0" prefWidth="455.0" />
+      <Button id="commitButton" fx:id="activeOfferButton" layoutX="11.0" layoutY="281.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Active offers" textFill="WHITE">
          <stylesheets>
             <URL value="file:/E:/CustomerRecordKeeping/src/sample/view/buttons.css" />
          </stylesheets>
       </Button>
-      <Button id="commitButton" fx:id="activeOfferButton" layoutX="5.0" layoutY="361.0" mnemonicParsing="false" text="Active offers">
+      <Button id="commitButton" fx:id="tableViewButton" layoutX="331.0" layoutY="218.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Fill table" textFill="WHITE">
          <stylesheets>
             <URL value="file:/E:/CustomerRecordKeeping/src/sample/view/buttons.css" />
          </stylesheets>
