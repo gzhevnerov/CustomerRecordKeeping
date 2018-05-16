@@ -23,7 +23,6 @@ public class RootLayoutController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText("About");
-        alert.showAndWait();
         alert.setContentText("Author: George Zhevnerov");
         alert.showAndWait();
     }

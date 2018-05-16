@@ -11,19 +11,24 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.w3c.dom.events.EventException;
 import sample.model.Employee;
 import sample.model.MarketingOfferType;
 import sample.model.Offer;
 import sample.util.DBUtil;
+import sample.util.NoCustomerFoundException;
 
 import java.awt.*;
 import java.io.IOException;
@@ -33,15 +38,14 @@ import java.util.Optional;
 
 
 public class EmployeeController {
-
     @FXML
-    private JFXButton createOfferButton;
+    private Button createOfferButton;
     @FXML
     private AnchorPane offerLayout;
     @FXML
     JFXTextField nameField;
     @FXML
-    JFXButton searchButton;
+    Button searchButton;
     @FXML
     JFXTextField employeeID;
     @FXML
@@ -51,21 +55,25 @@ public class EmployeeController {
     @FXML
     JFXTextField countryField;
     @FXML
-    JFXButton updateButton;
+    Button updateButton;
     @FXML
     TextField telephoneField;
     @FXML
-    JFXButton deleteButton;
+    Button deleteButton;
+    @FXML
+    Button countryButton;
     @FXML
     Label statusLabel;
     @FXML
-    JFXButton addButton;
+    Button addButton;
     @FXML
-    JFXButton clearButton;
+    Button clearButton;
     @FXML
-    JFXButton tableViewButton;
+    Button tableViewButton;
     @FXML
-    JFXButton offerViewButton;
+    Button offerViewButton;
+    @FXML
+    Button updateTableButton;
     @FXML
     CheckBox checkBox;
     @FXML
@@ -86,6 +94,8 @@ public class EmployeeController {
     private TableColumn<Employee, String> telephoneColumn;
     @FXML
     private TableColumn<Employee, String> countryColumn;
+    @FXML
+    private TableColumn<Employee, String> customerTypeColumn;
     @FXML
     private Stage tw;
 
@@ -124,31 +134,12 @@ public class EmployeeController {
                 clearFields();
             }
         });
-
         tableViewButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 fillTableView();
             }
         });
-
-        offerViewButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                  FXMLLoader loader = new FXMLLoader();
-                  loader.setLocation(getClass().getResource("/sample/view/MarketingOfferView.fxml"));
-                  secondaryLayout = (AnchorPane) loader.load();
-                  Scene scene = new Scene(secondaryLayout);
-                  Stage stage = new Stage();
-                  stage.setScene(scene);
-                  stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         createOfferButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -162,10 +153,25 @@ public class EmployeeController {
                     Stage stage = new Stage();
                     stage.setScene(scene);
                     stage.show();
+                    stage.setTitle("Create marketing offer");
+                    Image icon = new Image("sample/view/global.png");
+                    stage.getIcons().add(icon);
                     moc.initial();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+        updateTableButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                updateTableView();
+            }
+        });
+        countryButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                fillTableByCountry();
             }
         });
     }
@@ -175,14 +181,18 @@ public class EmployeeController {
         if(employeeID.getText().isEmpty()) {
             employees = dbUtil.getEmployeesList();
         } else {
-            employees = dbUtil.getEmployeesListByID(Integer.parseInt(employeeID.getText()));
+            try {
+                employees = dbUtil.getEmployeesListByID(Integer.parseInt(employeeID.getText()));
+            } catch (NoCustomerFoundException e) {
+                return;
+            }
+            employeeID.setText(String.valueOf(employees.get(0).getId()));
+            nameField.setText(employees.get(0).getName());
+            surnameField.setText(employees.get(0).getSurname());
+            emailField.setText(employees.get(0).getEmail());
+            telephoneField.setText(employees.get(0).getTelephone());
+            countryField.setText(employees.get(0).getCountry());
         }
-        employeeID.setText(String.valueOf(employees.get(0).getId()));
-        nameField.setText(employees.get(0).getName());
-        surnameField.setText(employees.get(0).getSurname());
-        emailField.setText(employees.get(0).getEmail());
-        telephoneField.setText(employees.get(0).getTelephone());
-        countryField.setText(employees.get(0).getCountry());
     }
     private void updateEmployee() {
         if(employeeID.getText().isEmpty()) {
@@ -202,12 +212,20 @@ public class EmployeeController {
       emailField.clear();
       telephoneField.clear();
       countryField.clear();
-      statusLabel.setText("Employee was updated");
+      statusLabel.setText("Customer was updated");
       statusLabel.setTextFill(Color.web("#FF4500"));
     }
     private void createEmployee() {
         List<String> choices = new ArrayList<>();
         List<String> customertype = new ArrayList<>();
+        if(!employeeID.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("This field have to be empty");
+            alert.setContentText("Ooops, there was an error!");
+            alert.showAndWait();
+            return;
+        }
         if (nameField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
@@ -248,7 +266,7 @@ public class EmployeeController {
         type.setHeaderText("Choose customer type");
         type.setContentText("Chooses:");
         Optional<String> resultType = type.showAndWait();
-        Employee emp = new Employee(nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), countryField.getText(), resultType.get());
+        Employee emp = new Employee(nameField.getText(), surnameField.getText(), emailField.getText(), telephoneField.getText(), resultType.get(), countryField.getText());
         DBUtil dbUtil = new DBUtil();
         dbUtil.createEmployee(emp);
         nameField.clear();
@@ -282,11 +300,13 @@ public class EmployeeController {
         emailField.clear();
         telephoneField.clear();
         countryField.clear();
+        customersTableView.getItems().clear();
+        customersTableView.getColumns().clear();
         statusLabel.setText("Fields were cleared");
         statusLabel.setTextFill(Color.web("#008080"));
-
     }
      public void fillTableView() {
+        customersTableView.getColumns().clear();
          DBUtil dbUtil = new DBUtil();
          ObservableList<Employee> tableData = FXCollections.observableArrayList(dbUtil.getAllCustomers());
          TableColumn idColumn = new TableColumn("id");
@@ -294,16 +314,61 @@ public class EmployeeController {
          TableColumn surnameColumn = new TableColumn("surname");
          TableColumn emailColumn = new TableColumn("email");
          TableColumn telephoneColumn = new TableColumn("telephone");
+         TableColumn customerTypeColumn = new TableColumn("customer type");
          TableColumn countryColumn = new TableColumn("country");
-         customersTableView.getColumns().addAll(idColumn,nameColumn,surnameColumn,emailColumn,telephoneColumn, countryColumn);
+         customersTableView.getColumns().addAll(idColumn,nameColumn,surnameColumn,emailColumn,telephoneColumn, countryColumn, customerTypeColumn);
          idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
          nameColumn.setCellValueFactory(new PropertyValueFactory< Employee, String>("name"));
          surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
          emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
          telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
+         customerTypeColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("customertype"));
+         countryColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("country"));
+         customersTableView.setItems(tableData);
+     }
+     public void updateTableView() {
+        customersTableView.getColumns().clear();
+         DBUtil dbUtil = new DBUtil();
+         ObservableList<Employee> tableData = FXCollections.observableArrayList(dbUtil.getAllCustomers());
+         TableColumn idColumn = new TableColumn("id");
+         TableColumn nameColumn = new TableColumn("name");
+         TableColumn surnameColumn = new TableColumn("surname");
+         TableColumn emailColumn = new TableColumn("email");
+         TableColumn telephoneColumn = new TableColumn("telephone");
+         TableColumn customerTypeColumn = new TableColumn("customer type");
+         TableColumn countryColumn = new TableColumn("country");
+         customersTableView.getColumns().addAll(idColumn,nameColumn,surnameColumn,emailColumn,telephoneColumn, countryColumn, customerTypeColumn);
+         idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
+         nameColumn.setCellValueFactory(new PropertyValueFactory< Employee, String>("name"));
+         surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
+         emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
+         telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
+         customerTypeColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("customertype"));
+         countryColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("country"));
+         customersTableView.setItems(tableData);
+     }
+     public void fillTableByCountry() {
+        customersTableView.getColumns().clear();
+        DBUtil dbUtil = new DBUtil();
+        ObservableList<Employee> tableData = FXCollections.observableArrayList(dbUtil.getAllCustomersByCountry(countryField.getText()));
+         TableColumn idColumn = new TableColumn("id");
+         TableColumn nameColumn = new TableColumn("name");
+         TableColumn surnameColumn = new TableColumn("surname");
+         TableColumn emailColumn = new TableColumn("email");
+         TableColumn telephoneColumn = new TableColumn("telephone");
+         TableColumn customerTypeColumn = new TableColumn("customer type");
+         TableColumn countryColumn = new TableColumn("country");
+         customersTableView.getColumns().addAll(idColumn,nameColumn,surnameColumn,emailColumn,telephoneColumn, countryColumn, customerTypeColumn);
+         idColumn.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
+         nameColumn.setCellValueFactory(new PropertyValueFactory< Employee, String>("name"));
+         surnameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("surname"));
+         emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
+         telephoneColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephone"));
+         customerTypeColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("customertype"));
          countryColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("country"));
          customersTableView.setItems(tableData);
      }
 }
+
 
 
