@@ -25,7 +25,7 @@
 
 -->
 <hibernate-mapping>
-  <class name="demo.fabric.Employee" table="employees">
+  <class name="demo.fabric.Employee" table="customers">
     <id name="id" column="emp_no">
       <!-- we'll add our own ids for now -->
       <generator class="assigned"/>

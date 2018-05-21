@@ -1695,7 +1695,7 @@ Java 8 (for JDBC 4+ implementation) is also required. Set the full path to this 
 
 
     <!-- Launch a Fabric demo. -->
-    <target name="demo-fabric" description="Launches a Fabric demo." depends="demo-fabric-client1, demo-fabric-employees-jdbc" />
+    <target name="demo-fabric" description="Launches a Fabric demo." depends="demo-fabric-client1, demo-fabric-customers-jdbc" />
 
 
     <!-- Launch a client component from the Fabric demo. -->
@@ -1718,8 +1718,8 @@ Java 8 (for JDBC 4+ implementation) is also required. Set the full path to this 
     </target>
 
 
-    <!-- Launch an employees component from the Fabric demo. -->
-    <target name="demo-fabric-employees-jdbc" description="Launches a employees component from the Fabric demo." depends="-extra-libs-check">
+    <!-- Launch an customers component from the Fabric demo. -->
+    <target name="demo-fabric-customers-jdbc" description="Launches a customers component from the Fabric demo." depends="-extra-libs-check">
         <java fork="on" classname="demo.fabric.EmployeesJdbc" dir="${buildDir}/${fullProdName}">
             <sysproperty key="com.mysql.fabric.testsuite.hostname" value="${com.mysql.fabric.testsuite.hostname}" />
             <sysproperty key="com.mysql.fabric.testsuite.port" value="${com.mysql.fabric.testsuite.port}" />

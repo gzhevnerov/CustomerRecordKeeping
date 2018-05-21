@@ -52,12 +52,12 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-    <Label fx:id="statusLabel" layoutX="321.0" layoutY="28.0" prefHeight="52.0" prefWidth="207.0" text="" underline="false">
+    <Label fx:id="statusLabel" layoutX="321.0" layoutY="36.0" prefHeight="52.0" prefWidth="207.0" text="" underline="false">
       <font>
         <Font size="15.0" />
       </font>
     </Label>
-    <Button fx:id="tableViewButton" cache="true" layoutX="14.0" layoutY="280.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Fill table" textFill="WHITE">
+    <Button fx:id="tableViewButton" cache="true" layoutX="5.0" layoutY="280.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Fill table" textFill="WHITE">
       <stylesheets>
         <URL value="@buttons.css" />
       </stylesheets>
@@ -79,14 +79,14 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-    <Button id="transactionButton" fx:id="createOfferButton" layoutX="457.0" layoutY="277.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="171.0" style="-fx-background-color: #00008B;" text="Create marketing offer" textFill="WHITE">
+    <Button id="transactionButton" fx:id="createOfferButton" layoutX="562.0" layoutY="277.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="171.0" style="-fx-background-color: #00008B;" text="Create marketing offer" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="11.0" />
          </font>
          <cursor>
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor></Button>
-      <Button fx:id="updateTableButton" layoutX="150.0" layoutY="280.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Update table" textFill="WHITE">
+      <Button fx:id="updateTableButton" layoutX="129.0" layoutY="280.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Update table" textFill="WHITE">
          <stylesheets>
             <URL value="@buttons.css" />
          </stylesheets>
@@ -153,7 +153,21 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="countryButton" cache="true" layoutX="299.0" layoutY="280.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Fill by country" textFill="WHITE">
+      <Button fx:id="countryButton" cache="true" layoutX="252.0" layoutY="280.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" style="-fx-background-color: #00008B;" text="Fill by country" textFill="WHITE">
+         <stylesheets>
+            <URL value="@buttons.css" />
+         </stylesheets>
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button fx:id="findInTableButton" cache="true" layoutX="375.0" layoutY="280.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="171.0" style="-fx-background-color: #00008B;" text="Find by name, surname" textFill="WHITE">
          <stylesheets>
             <URL value="@buttons.css" />
          </stylesheets>

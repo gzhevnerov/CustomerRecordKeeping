@@ -1,9 +1,7 @@
 package sample.util;
 
 
-import javafx.scene.control.Alert;
-import sample.controller.EmployeeController;
-import sample.model.Employee;
+import sample.model.Customer;
 import sample.model.MarketingOfferType;
 import sample.model.Offer;
 
@@ -17,10 +15,10 @@ public class DBUtil {
     private static final String USER = "sql7237286";
     private static final String PASSWORD = "HzZwQixz9B";
     private ResultSet resultSet;
-    private ArrayList<Employee> employees;
+    private ArrayList<Customer> customers;
     private ArrayList<Offer> offers;
 
-    public ArrayList<Employee> getEmployeesList() {
+    public ArrayList<Customer> getEmployeesList() {
         try {
             Connection connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
             Statement myStat = connection.createStatement();
@@ -29,10 +27,10 @@ public class DBUtil {
             e.printStackTrace();
         }
 
-        employees = new ArrayList<>();
+        customers = new ArrayList<>();
 
         createUsers();
-        return employees;
+        return customers;
     }
 
     public ArrayList<Offer> getOffersList() {
@@ -48,7 +46,7 @@ public class DBUtil {
         return offers;
     }
 
-    public ArrayList<Employee> getEmployeesListByID(int employeeID) throws NoCustomerFoundException {
+    public ArrayList<Customer> getEmployeesListByID(int employeeID) throws NoCustomerFoundException {
         try {
             Connection connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
             Statement myStat = connection.createStatement();
@@ -62,9 +60,9 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        employees = new ArrayList<>();
+        customers = new ArrayList<>();
         createUsers();
-        return employees;
+        return customers;
     }
 
     private void createOffers() {
@@ -86,7 +84,7 @@ public class DBUtil {
     private void createUsers() {
         try {
             while (resultSet.next()) {
-                employees.add(new Employee(resultSet.getInt("employee_id"),
+                customers.add(new Customer(resultSet.getInt("employee_id"),
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getString("email"),
@@ -97,7 +95,6 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
-
     public void createOffer(Offer offer) {
         Connection connection = null;
         try {
@@ -122,7 +119,7 @@ public class DBUtil {
         }
     }
 
-    public void updateEmployee(Employee emp) {
+    public void updateEmployee(Customer emp) {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
@@ -146,7 +143,7 @@ public class DBUtil {
         }
     }
 
-    public void createEmployee(Employee emp) {
+    public void createEmployee(Customer emp) {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
@@ -169,7 +166,7 @@ public class DBUtil {
         }
     }
 
-    public void deleteEmployee(Employee emp) {
+    public void deleteEmployee(Customer emp) {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
@@ -187,8 +184,8 @@ public class DBUtil {
         }
     }
 
-    public ArrayList<Employee> getAllCustomers() {
-        ArrayList<Employee> employees = new ArrayList<Employee>();
+    public ArrayList<Customer> getAllCustomers() {
+        ArrayList<Customer> customers = new ArrayList<Customer>();
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
@@ -200,7 +197,7 @@ public class DBUtil {
             Statement st = connection.createStatement();
             ResultSet set = st.executeQuery(statement);
             while (set.next()) {
-                employees.add(new Employee(set.getInt("employee_id"),
+                customers.add(new Customer(set.getInt("employee_id"),
                         set.getString("name"),
                         set.getString("surname"),
                         set.getString("email"),
@@ -213,7 +210,7 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employees;
+        return customers;
     }
 
     public void deleteOffer(Offer offer) {
@@ -332,20 +329,8 @@ public class DBUtil {
         }
         return offer;
     }
-    public ArrayList<Employee> getEmployeesListByCountry(String country) {
-        try {
-            Connection connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
-            Statement myStat = connection.createStatement();
-            resultSet = myStat.executeQuery("SELECT * FROM sql7237286.employees WHERE country = " + country);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        employees = new ArrayList<>();
-        createUsers();
-        return employees;
-    }
-    public ArrayList<Employee> getAllCustomersByCountry(String country) {
-        ArrayList<Employee> employees = new ArrayList<Employee>();
+    public ArrayList<Customer> getAllCustomersByCountry(String country) throws NoCountryFoundException {
+        ArrayList<Customer> customers = new ArrayList<Customer>();
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
@@ -357,8 +342,11 @@ public class DBUtil {
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setObject(1, country);
             ResultSet rs = ps.executeQuery();
+            if(!rs.next()) {
+                throw new NoCountryFoundException();
+            } rs.beforeFirst();
             while (rs.next()) {
-                employees.add(new Employee(rs.getInt("employee_id"),
+                customers.add(new Customer(rs.getInt("employee_id"),
                         rs.getString("name"),
                         rs.getString("surname"),
                         rs.getString("email"),
@@ -368,9 +356,76 @@ public class DBUtil {
 
             }
             ps.close();
+        } catch (NoCountryFoundException e) {
+            e.getAlert();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employees;
+        return customers;
+    }
+
+    public ArrayList<Customer> getAllCustomersByNameSurname(String name, String surname) {
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            String statement = "SELECT * FROM sql7237286.employees WHERE name = ? AND surname = ?";
+            PreparedStatement ps = connection.prepareStatement(statement);
+            ps.setObject(1, name);
+            ps.setObject(2, surname);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                customers.add(new Customer(rs.getInt("employee_id"),
+                        rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getString("email"),
+                        rs.getString("telephone"),
+                        rs.getString("customer_type"),
+                        rs.getString("country")));
+            }
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+    public ArrayList<Offer> getMarketingOfferById(int marketingOfferID) throws NoOfferFoundException {
+        try {
+            Connection connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
+            Statement myStat = connection.createStatement();
+            resultSet = myStat.executeQuery("SELECT * FROM sql7237286.marketing_offer WHERE marketing_offer_id = " + marketingOfferID);
+            if (resultSet.next() == false) {
+                throw new NoOfferFoundException();
+            } resultSet.beforeFirst();
+        } catch (NoOfferFoundException e) {
+            e.getAlert();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        offers = new ArrayList<>();
+        createOffers();
+        return offers;
+    }
+    public ArrayList<Offer> getMarketingOfferByEmployeeId(int employeeID) throws NoCustomerFoundException {
+        try {
+            Connection connection = DriverManager.getConnection(CONN_STR, USER, PASSWORD);
+            Statement myStat = connection.createStatement();
+            resultSet = myStat.executeQuery("SELECT * FROM sql7237286.marketing_offer WHERE employee_id = " + employeeID);
+            if (resultSet.next() == false) {
+                throw new NoCustomerFoundException();
+            }
+            resultSet.beforeFirst();
+        } catch (NoCustomerFoundException e) {
+            e.getAlert();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        offers = new ArrayList<>();
+        createOffers();
+        return offers;
     }
 }

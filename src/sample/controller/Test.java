@@ -1,19 +1,17 @@
 package sample.controller;
 
-import javafx.collections.ObservableList;
-import sample.model.Employee;
+import sample.model.Customer;
 import sample.util.DBUtil;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Main {
+public class Test {
     public static void main(String[] args) {
         DBUtil dbUtil = new DBUtil();
-        ArrayList<Employee> employees = dbUtil.getAllCustomers();
-        for(Employee emp : employees) {
+        ArrayList<Customer> customers = dbUtil.getAllCustomers();
+        for(Customer emp : customers) {
             System.out.println(emp.getName());
-            System.out.println(emp.getTelephone());
+            System.out.println(emp.getCustomertype());
 
         }
     }

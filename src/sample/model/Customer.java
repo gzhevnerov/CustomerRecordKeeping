@@ -3,8 +3,35 @@ package sample.model;
 
 import javafx.beans.property.*;
 
-public class Employee {
+public class Customer {
 
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", customertype='" + customertype + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
+
+    public Customer(String country) {
+        this.country = country;
+    }
+
+    public Customer(int id, String name, String surname, String email, String telephone, String customertype, String country) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.telephone = telephone;
+        this.country = country;
+        this.customertype = customertype;
+    }
 
     private int id;
     private String name;
@@ -15,7 +42,7 @@ public class Employee {
     private String country;
 
 
-    public Employee(String name, String surname, String email, String telephone, String customertype, String country) {
+    public Customer(String name, String surname, String email, String telephone, String customertype, String country) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -32,7 +59,7 @@ public class Employee {
         return customertype;
     }
 
-    public Employee(int id, String name, String surname, String email, String telephone) {
+    public Customer(int id, String name, String surname, String email, String telephone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -40,7 +67,7 @@ public class Employee {
         this.telephone = telephone;
     }
 
-    public Employee(String name, String surname, String email, String telephone) {
+    public Customer(String name, String surname, String email, String telephone) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -56,7 +83,7 @@ public class Employee {
         this.country = country;
     }
 
-    public Employee(int id, String name, String surname, String email, String telephone, String country) {
+    public Customer(int id, String name, String surname, String email, String telephone, String country) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -65,7 +92,7 @@ public class Employee {
         this.country = country;
     }
 
-    public Employee(int id) {
+    public Customer(int id) {
         this.id = id;
     }
 

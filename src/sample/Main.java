@@ -6,14 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import sample.controller.EmployeeController;
-import sample.controller.MarketingOfferController;
-import sample.controller.RootLayoutController;
+import sample.controller.CustomerController;
 
 import java.awt.*;
-import java.beans.EventHandler;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -26,7 +22,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Customer record-keeping");
-        this.primaryStage.getIcons().add(new Image("file:/C:/Users/pokenav/Desktop/global.png"));
+        Image icon = new Image("sample/view/global.png");
+        this.primaryStage.getIcons().add(icon);
         initRootLayout();
         showEmployeeOperationsView();
 }
@@ -45,10 +42,10 @@ public class Main extends Application {
     }
     public void showEmployeeOperationsView() {
         try {
-            EmployeeController ec = new EmployeeController();
+            CustomerController ec = new CustomerController();
             FXMLLoader loader = new FXMLLoader();
             loader.setController(ec);
-            loader.setLocation(Main.class.getResource("view/EmployeeView.fxml"));
+            loader.setLocation(Main.class.getResource("view/CustomerView.fxml"));
             AnchorPane employeeOperationsView = (AnchorPane) loader.load();
             rootLayout.setCenter(employeeOperationsView);
             // rootLayout.setBackground();

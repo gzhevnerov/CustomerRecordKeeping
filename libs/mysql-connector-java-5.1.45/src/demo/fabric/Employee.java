@@ -24,7 +24,7 @@
 package demo.fabric;
 
 /**
- * Employee as mapped to 'employees' table.
+ * Customer as mapped to 'employees' table.
  */
 public class Employee {
     private Integer id;
